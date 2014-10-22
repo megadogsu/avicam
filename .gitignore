@@ -1,0 +1,5 @@
+build-cli
+tmp/*
+etc/*
+*.pyc
+*.spec
