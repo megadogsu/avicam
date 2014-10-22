@@ -15,7 +15,6 @@ def toSerialInt(integer):
 def capture():
 #	global cam
 #	global ser
-	print(456)
 	img = cam.getImage()
 	img = img.scale(320,180)
 	#d = img.show()
@@ -29,39 +28,23 @@ def capture():
 	ser.write(low)
 	print(high, low)
 	print(ord(high), ord(low))
-
 	capture = open("tmp/capture.jpg","rb").read()
-	i = -1
+	
+	i = 0
+	size = len(capture)
 	terminal = '\n'
-	buffsize = 63
-	while i <= len(capture):
-		i += 1
-		if i == len(capture):
-			print("At end", i)
-			ser.write(terminal)
-			echo = ser.read(1)
-			if echo != terminal:
-				i-=(i%8)
-				print("Bad", echo, i)
-				continue;
-			else:
-				print("Finish")
-				break;
-		if(i < 0) or (i >= len(capture)):
-			print(i)
-		ser.write(capture[i])
-		if i % buffsize == (buffsize - 1):
-			ser.write(terminal)
-			echo = ser.read(1)
-			#print(ser.readline())
-			if echo == terminal:
-				print("Received", i)
-				#time.sleep(1)
-				continue
-			else:
-				print("Bad", echo, i)
-				i-=8
-				continue
+	buffsize = 62
+	while i < size:
+		ser.write(capture[i:i+buffsize])
+		ser.write(terminal)
+		echo = ser.read(1)
+		if echo == terminal:
+			print("Received from %d, to %d" % ( i, i+buffsize-1) )
+			i += buffsize
+		else:
+			print("Bad", echo, i)
+
+		
 	print(ser.readline())
 
 #class App():
@@ -78,10 +61,10 @@ def capture():
 
 #cam = camera(prop_set={"width":12,"height":8}) 
 #cam = camera() 
-bytesToRead = ser.inWaiting()
-mystring = ser.read(bytesToRead)
-sys.stdout.write(mystring)
-sys.stdout.flush()
+#bytesToRead = ser.inWaiting()
+#mystring = ser.read(bytesToRead)
+#sys.stdout.write(mystring)
+#sys.stdout.flush()
 
 while True:
 	key = ser.read()

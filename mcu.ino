@@ -10,7 +10,7 @@ SdFile myFile, theFile;
 const uint8_t chipSelect = SS;
 
 
-#define buffsize 8
+#define buffsize 62
 
 void setup()
 {
@@ -56,8 +56,8 @@ void loop()
         }
         break;
       case 'T':
-        char high, low, i;
-        int bytes, remain, error;
+        char high, low;
+        int i, bytes, remain, error;
         char data[buffsize+1];
         
         Serial.write('C');
@@ -68,45 +68,89 @@ void loop()
           high = Serial.read();
           low = Serial.read();
           bytes = makeWord(high, low);
-          //Serial.println(bytes);
-          error = 0;
-          for(i = 0; i < bytes-buffsize; i+=buffsize){
-            //Serial.println(i);
-            Serial.readBytes(data,buffsize+1);
-            if(data[buffsize] != terminal){
-              Serial.write('R');
-              i-=buffsize;
-              error++;
-            }else{
-              Serial.write(terminal);
-              myFile.write(data,buffsize);
-            }
-          }
-          remain = i%buffsize;
-          Serial.readBytes(data,remain+1);
-          if(data[remain] != terminal){
-              Serial.write('R');
-              i-=buffsize;
-              error++;
-            }else{
-              Serial.write(terminal);
-              myFile.write(data,remain);
-            }
           
-          mySerial.print("Transfer Done! with errors:");
+          i = 0; 
+          error = 0;
+
+          while(i < bytes){
+			  if(i > (bytes - buffsize)){
+          	  	  remain = bytes%buffsize;
+			  	  while(Serial.available() < remain+1){}
+          	  	  Serial.readBytes(data,remain+1);
+          	  	  if(data[remain] != terminal){
+              	  	  Serial.write('R');
+              	  	  error++;
+              	  	  continue;
+              	  }else{
+              	  	  Serial.write(terminal);
+              	  	  myFile.write(data,remain);
+              	  	  i += remain;
+              	  	  break;
+              	  }
+          	  }else{
+          	  	  while(Serial.available() < buffsize+1){}
+              	  Serial.readBytes(data,buffsize+1);
+              	  if(data[buffsize] != terminal){
+              	  	  Serial.write('R');
+              	  	  error++;
+              	  }else{
+              	  	  Serial.write(terminal);
+              	  	  myFile.write(data,buffsize);
+              	  	  i += buffsize;
+              	  }
+
+          	  }
+          }
+
+          /*
+          for(i = 0; i < bytes; i+=buffsize){
+              //Serial.println(i);
+
+              if( i > bytes - buffsize){
+          	  	  remain = bytes%buffsize;
+				  while(Serial.available() < remain){}
+          	  	  Serial.readBytes(data,remain+1);
+          	  	  if(data[remain] != terminal){
+              	  	  Serial.write('R');
+              	  	  i-=buffsize;
+              	  	  error++;
+              	  	  continue;
+
+              	  	  Serial.write(terminal);
+              	  	  myFile.write(data,remain);
+              	  	  break;
+            	  }
+              }
+			  while(Serial.available() < buffsize+1){
+			  	  mySerial.println(Serial.available());
+			  }
+              Serial.readBytes(data,buffsize+1);
+              if(data[buffsize] != terminal){
+              	  Serial.write('R');
+              	  i-=buffsize;
+              	  error++;
+              }else{
+              	  Serial.write(terminal);
+              	  myFile.write(data,buffsize);
+              }
+          }
+          */
+          mySerial.println("Successfully saved to SD!");
+          Serial.print("Transfer Done! with errors:");
+          Serial.println(error);
           myFile.close();
           //Serial.println(myFile.fileSize());
         }else{
-          Serial.write('!');
+          	Serial.write('!');
         }
         break;
       case 'Z':
         mySerial.print("Sending image size:");
         if(theFile.open("img.jpg", O_READ)){        
-          // read from the file until there's nothing else in it:
-          mySerial.println(theFile.fileSize());
-          // close the file:
-          theFile.close();
+          	// read from the file until there's nothing else in it:
+          	mySerial.println(theFile.fileSize());
+          	// close the file:
+          	theFile.close();
         }
         break;
       default:
