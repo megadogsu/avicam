@@ -1,6 +1,14 @@
 from lib.linuxkb import *
 import struct, Image, time, serial, sys
 from xbee import XBee
+import atexit
+
+def terminate():
+	os.system("./capture.py stop")
+
+def captureInit():
+	os.system("./capture.py start")
+	atexit.register(terminate)
 
 ser = serial.Serial('/dev/ttyUSB0', 19200)
 
@@ -13,7 +21,7 @@ def getImg():
 	i = 0
 	terminal = '\n'
 	resend = 'R'
-	buffsize = 512
+	buffsize = 256
 	
 	while i < size:
 		if i > size-buffsize:
@@ -36,7 +44,7 @@ def getImg():
 	jpg_file.close();
 	Image.open('tmp/test.jpg').show()
 
-
+captureInit()
 
 bytesToRead = ser.inWaiting()
 mystring = ser.read(bytesToRead)
@@ -62,6 +70,9 @@ while 1:
 			print(ser.readline())
 		elif key in ('w', 'write'):
 			ser.write('W')
+			print(ser.readline())
+		elif key in ('r', 'read'):
+			ser.write('R')
 			print(ser.readline())
 		elif key in ('q', 'quit'):
 			break

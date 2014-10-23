@@ -30,7 +30,7 @@ def capture():
 	i = 0
 	size = len(capture)
 	terminal = '\n'
-	buffsize = 62
+	buffsize = 50
 	while i < size:
 		ser.write(capture[i:i+buffsize])
 		ser.write(terminal)
