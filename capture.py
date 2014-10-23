@@ -6,25 +6,26 @@ from lib import runner
 
 
 def toSerialInt(integer):
-	high, low = divmod(integer, 0x100)
-	return chr(high), chr(low)
+	mybytes = []
+	for i in range(0,4):
+		integer, byte = divmod(integer, 0x100)
+		mybytes.insert(0,byte)
+	return mybytes
 
 def capture():
 	global cam
 	global ser
 	img = cam.getImage()
-	img = img.scale(320,180)
+	#img = img.scale(32,18)
 	#d = img.show()
 	img.save("tmp/capture.jpg",'JPEG',quality=60) 
 	call(["image_optim", "tmp/capture.jpg"])
 
 	size = os.path.getsize("tmp/capture.jpg")
 	print("File size:", size, "bytes")
-	high, low = toSerialInt(size)
-	ser.write(high)
-	ser.write(low)
-	print(high, low)
-	print(ord(high), ord(low))
+	byte = struct.pack("I",size)
+	ser.write(byte)
+	print(ser.readline()[:-1])
 	capture = open("tmp/capture.jpg","rb").read()
 
 	i = 0
@@ -54,7 +55,7 @@ class Capture():
     def run(self):
 		global ser
 		global cam
-		ser = serial.Serial('/dev/ttyACM0', 19200, timeout=None)
+		ser = serial.Serial('/dev/ttyACM0', 57600, timeout=None)
 		cam = Camera(prop_set={"width":1280,"height":720}) 
 		
 		while True:

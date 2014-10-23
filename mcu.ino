@@ -12,20 +12,21 @@ const uint8_t chipSelect = 4;
 
 #define SDBuffSize 50
 #define XBeeBuffSize 256
+#define RetryDelay 20
 
 void setup()
 {
   // Set up both ports at 9600 baud. This value is most important
   // for the XBee. Make sure the baud rate matches the config
   // setting of your XBee.
-  Serial.begin(19200);
+  Serial.begin(57600);
   mySerial.begin(19200);
   Serial.setTimeout(10000);
   mySerial.setTimeout(10000);
   pinMode(10, OUTPUT);  
   
-  while(Serial.available() < 0){}
-  delay(400);
+  while(mySerial.available() < 0){}
+  //delay(400);
   
   if (sd.begin(chipSelect, SPI_HALF_SPEED)){
     mySerial.println("initialization done.");
@@ -35,9 +36,11 @@ void setup()
   }
 }
 
-void SerialInt(int n){
-  mySerial.write(lowByte(n));
-  mySerial.write(highByte(n));
+void SerialInt(unsigned long n){
+  mySerial.write(lowByte(n & 0xFFFF));
+  mySerial.write(highByte(n & 0xFFFF));
+  mySerial.write(lowByte(n >> 16));
+  mySerial.write(highByte(n >> 16));
 }
 
 
@@ -48,8 +51,9 @@ void loop()
     	char key; 
     	char terminal = '\n';
     	char resend = 'R';
-    	int i, fileSize, remain, error;
-
+    	int remain, error, sync, readbytes;
+		char sizebytes[4];
+		unsigned long i, fileSize;
 		while(mySerial.available() < 1){}
 		key = mySerial.read();
     	switch(key){
@@ -59,25 +63,36 @@ void loop()
         		if(myFile.open("tmp.jpg", O_READ)){
           			fileSize = myFile.fileSize();
           			SerialInt(fileSize);
-          			mySerial.println(fileSize);
+          			//mySerial.println(fileSize);
           			i = 0;
 		  			while(i < fileSize){
-		  	  			i += myFile.read(XBeeBuff, XBeeBuffSize);
+						readbytes = myFile.read(XBeeBuff, XBeeBuffSize);
+		  	  			while(readbytes < 0){
+							readbytes = myFile.read(XBeeBuff, XBeeBuffSize);
+							delay(RetryDelay);
+		  	  			}
+
+		  	  			i += readbytes;
+          	  			
           	  			do{
 		  	  	  			if(i == fileSize){
-		  	  	  	  			XBeeBuff[fileSize%XBeeBuffSize] = terminal;
-		  	  	  	  			mySerial.write((uint8_t*)XBeeBuff,XBeeBuffSize+1);
+		  	  	  	  			mySerial.write((uint8_t*)XBeeBuff,fileSize%XBeeBuffSize);
+		  	  	  	  			mySerial.write(terminal);
 				  			}
 		  	  	  			else{
-		  	  	  	  			XBeeBuff[XBeeBuffSize] = terminal;
-		  	  	  	  			mySerial.write((uint8_t*)XBeeBuff,XBeeBuffSize+1);
+		  	  	  	  			mySerial.write((uint8_t*)XBeeBuff,XBeeBuffSize);
+		  	  	  	  			mySerial.write(terminal);
 		  	  	  			}
 		  	  	  			while(mySerial.available() < 1){}
 			  	  			echo = mySerial.read();
           	  			}while(echo != terminal);
 		  			}
           			// close the file:
+          			mySerial.print("Transfer Done! Total:");
+          			mySerial.println(myFile.fileSize());
           			myFile.close();
+        		}else{
+        			mySerial.println("Fault opening files");
         		}
         		break;
       		case 'T':
@@ -88,69 +103,86 @@ void loop()
         		if(sd.exists("tmp.jpg")){
         			while(!sd.remove("tmp.jpg")){
         				mySerial.println("Fault removing files");
-        				delay(100);
+        				delay(RetryDelay);
         			}
         		}
-        		if(myFile.open("tmp.jpg", O_CREAT | O_WRITE)){
+        		if(myFile.open("tmp.jpg", O_CREAT | O_RDWR)){
           			Serial.write('#');
-          			while(Serial.available() < 2){}
-          			high = Serial.read();
-          			low = Serial.read();
-          			fileSize = makeWord(high, low);
-
+          			while(Serial.available() < 4){}
+          			Serial.readBytes(sizebytes,4);
+          			fileSize = (makeWord(sizebytes[0], sizebytes[1]) << 8) + makeWord(sizebytes[2], sizebytes[3]);
+          			Serial.println(fileSize);
+          			
           			i = 0; 
           			error = 0;
+          			sync = 0;
 
           			while(i < fileSize){
 			  			if(i > (fileSize - SDBuffSize)){
           	  	  			remain = fileSize%SDBuffSize;
-			  	  			while(Serial.available() < remain+1){}
-          	  	  			Serial.readBytes(SDBuff,remain+1);
-          	  	  			if(SDBuff[remain] != terminal){
+			  	  			while(Serial.available() < remain){
+			  	  				//mySerial.println("123");	
+			  	  				delay(RetryDelay);	
+			  	  			}
+          	  	  			Serial.readBytes(SDBuff,remain);
+			  	  			while(Serial.available() < 1){
+			  	  				//mySerial.println("234");	
+			  	  				delay(RetryDelay);	
+			  	  			}
+          	  	  			if(Serial.read() != terminal){
               	  	  			Serial.write(resend);
               	  	  			error++;
               	  	  			continue;
               	  			}else{
               	  	  			Serial.write(terminal);
               	  	  			int tmp = myFile.write(SDBuff,remain);
-              	  	  			mySerial.println(tmp);
               	  	  			while(tmp < remain){
+          	  						myFile.sync();
+        							delay(RetryDelay);
               	  	  				tmp = myFile.write(SDBuff,remain);
+              	  	  				sync++;
+              	  	  				//mySerial.println("File I/O");
               	  	  			}
-              	  	  			//while(myFile.write(SDBuff,remain) < remain){}
               	  	  			i += remain;
               	  	  			break;
               	  			}
           	  			}else{
-          	  	  			while(Serial.available() < SDBuffSize+1){}
-              	  			Serial.readBytes(SDBuff,SDBuffSize+1);
-              	  			if(SDBuff[SDBuffSize] != terminal){
+          	  	  			while(Serial.available() < SDBuffSize){
+			  	  				//mySerial.println(Serial.available());
+			  	  				delay(RetryDelay);	
+          	  	  			}
+              	  			Serial.readBytes(SDBuff,SDBuffSize);
+			  	  			while(Serial.available() < 1){
+			  	  				//mySerial.println("456");	
+			  	  				//mySerial.println(Serial.available());
+			  	  				delay(RetryDelay);	
+			  	  			}
+              	  			if(Serial.read() != terminal){
               	  	  			Serial.write(resend);
               	  	  			error++;
               	  			}else{
               	  	  			Serial.write(terminal);
               	  	  			int tmp = myFile.write(SDBuff,SDBuffSize);
-              	  	  			mySerial.println(tmp);
               	  	  			while(tmp < SDBuffSize){
-              	  	  				tmp = myFile.write(SDBuff,SDBuffSize);
-              	  	  				mySerial.println(tmp);
-									mySerial.println(FreeRam());
           	  						myFile.sync();
-              	  	  				delay(100);
+        							delay(RetryDelay);
+              	  	  				tmp = myFile.write(SDBuff,SDBuffSize);
+              	  	  				sync++;
+              	  	  				//mySerial.println("File I/O");
               	  	  			}
-              	  	  			/*while(myFile.write(SDBuff,SDBuffSize) < SDBuffSize){
-              	  	  			  delay(10);
-              	  	  			  }*/
               	  	  			i += SDBuffSize;
               	  			}
 
           	  			}
-          	  			myFile.sync();
+
           			}
           			mySerial.print("Successfully saved to SD!, size:");
           			mySerial.println(myFile.fileSize());
-          			Serial.print("Transfer Done! with errors:");
-          			Serial.println(error);
+          			Serial.print("Transfer Done! with packet errors:");
+          			Serial.print(error);
+          			Serial.print(" and SD I/Os:");
+          			Serial.println(sync);
+          	  		myFile.sync();
           			myFile.close();
         		}else{
           			Serial.write('!');

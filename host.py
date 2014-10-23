@@ -3,8 +3,10 @@ import struct, Image, time, serial, sys
 from xbee import XBee
 import atexit
 
+
 def terminate():
 	os.system("./capture.py stop")
+
 
 def captureInit():
 	os.system("./capture.py start")
@@ -15,7 +17,9 @@ ser = serial.Serial('/dev/ttyUSB0', 19200)
 def getImg():
 	jpg_file = open("tmp/test.jpg", 'w')
 	ser.write('G')
-	size = struct.unpack("h",ser.read(2))[0]
+	byte = ser.read(4)
+	#print(''.join('%02x'%ord(i) for i in byte))
+	size = struct.unpack("I",byte)[0]
 	print("File size is:", size)
 	
 	i = 0
@@ -32,6 +36,7 @@ def getImg():
 		echo = ser.read()
 		if echo != terminal:
 			ser.write(resend)
+			print("Bad",echo, data,i)
 			continue
 		else:
 			ser.write(terminal)
@@ -39,7 +44,7 @@ def getImg():
 			jpg_file.write(data)
 			i += buffsize
 	
-	print(ser.readline())
+	print(ser.readline()[:-1])
 
 	jpg_file.close();
 	Image.open('tmp/test.jpg').show()

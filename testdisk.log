@@ -910,3 +910,356 @@ No partition found or selected for recovery
 simulate write!
 
 TestDisk exited normally.
+
+
+Wed Oct 22 23:55:56 2014
+Command line: TestDisk
+
+TestDisk 6.13, Data Recovery Utility, November 2011
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 3.11.0-26-generic (#45~precise1-Ubuntu SMP Tue Jul 15 04:02:35 UTC 2014) x86_64
+Compiler: GCC 4.6
+Compilation date: 2012-02-05T07:15:52
+ext2fs lib: 1.42, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, LBA48 support
+/dev/sda: size       351651888 sectors
+/dev/sda: user_max   351651888 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 180 GB / 167 GiB - CHS 21889 255 63, sector size=512 - INTEL SSDSC2BF180A4L, S/N:CVDA3505052W1802GN, FW:LSTi
+Disk /dev/sde - 3965 MB / 3781 MiB - CHS 1023 122 62, sector size=512 - TS-RDF5 SD  Transcend, FW:TS37
+
+Partition table type (auto): Intel
+Disk /dev/sde - 3965 MB / 3781 MiB - TS-RDF5 SD  Transcend
+Partition table type: EFI GPT
+
+Analyse Disk /dev/sde - 3965 MB / 3781 MiB - CHS 1023 122 62
+Current partition structure:
+Bad GPT partition, invalid signature.
+
+search_part()
+Disk /dev/sde - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 0/1/1
+FAT1 : 1302-8842
+FAT2 : 8843-16383
+start_rootdir : 16384 root cluster : 2
+Data : 16384-7737903
+sectors : 7737910
+cluster_size : 8
+no_of_cluster : 965190 (2 - 965191)
+fat_length 7541 calculated 7541
+heads/cylinder 255 (FAT) != 122 (HD)
+sect/track 63 (FAT) != 62 (HD)
+set_FAT_info: name from BS used
+
+FAT32 at 0/1/1
+     MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+
+Results
+   P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+
+interface_write()
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+write!
+No extended partition
+You will have to reboot for the change to take effect.
+
+Interface Advanced
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+
+fat32_boot_sector
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+FAT32 at 0/1/1
+Info: size boot_sector 7737910, partition 7737910
+FAT1 : 1302-8842
+FAT2 : 8843-16383
+start_rootdir : 16384 root cluster : 2
+Data : 16384-7737903
+sectors : 7737910
+cluster_size : 8
+no_of_cluster : 965190 (2 - 965191)
+fat_length 7541 calculated 7541
+heads/cylinder 255 (FAT) != 122 (HD)
+sect/track 63 (FAT) != 62 (HD)
+FAT32 at 0/1/1
+Info: size boot_sector 7737910, partition 7737910
+FAT1 : 1302-8842
+FAT2 : 8843-16383
+start_rootdir : 16384 root cluster : 2
+Data : 16384-7737903
+sectors : 7737910
+cluster_size : 8
+no_of_cluster : 965190 (2 - 965191)
+fat_length 7541 calculated 7541
+heads/cylinder 255 (FAT) != 122 (HD)
+sect/track 63 (FAT) != 62 (HD)
+Boot sector
+Warning: Incorrect number of heads/cylinder 255 (FAT) != 122 (HD)
+Warning: Incorrect number of sectors per track 63 (FAT) != 62 (HD)
+OK
+
+Backup boot sector
+Warning: Incorrect number of heads/cylinder 255 (FAT) != 122 (HD)
+Warning: Incorrect number of sectors per track 63 (FAT) != 62 (HD)
+OK
+
+First sectors (Boot code and partition information) are not identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+rebuild_FAT_BS p_fat12 0, p_fat16 0, p_fat32 1
+fat_find_type(max_offset=60516, p_fat12=0, p_fat16=0, p_fat32=1, debug=1, dump_ind=0)
+FAT32 at 1302(0/22/1), nbr=1
+FAT32 at 8843(1/21/40), nbr=1
+first_fat 1302, second_fat 8843
+FAT : 32, reserved=1302, fat_length=7541
+sectors_per_cluster 8
+next_free 7, free_count 965185
+fat32_find_root_cluster(sectors_per_cluster=8,no_of_cluster=965190,reserved=1302,fat_length=7541,expert=0,first_free_cluster=7)
+Potential root_cluster 2
+       3 -rwxr-xr-x     0      0        15 31-Dec-1999 20:00 TEST.TXT
+       0 -rwxr-xr-x     0      0         0 31-Dec-1999 20:00 TMP.JPG
+Search root cluster failed
+No first-level directory found.
+             New / Current boot sector
+FAT32
+sector_size  512 512
+cluster_size 8 8
+reserved     1302 1302
+fats         2 2
+dir_entries  0 0
+sectors      0 0
+media        F8 F8
+fat_length   0 0
+secs_track   62 63
+heads        122 255
+hidden       62 62
+total_sect   7737910 7737910
+fat32_length 7541 7541
+flags        0000 0000
+version      0.0  0.0
+root_cluster 0 2
+info_sector  1 1
+backup_boot  6 6
+free_count   18446744073709551615 965185
+next_free    18446744073709551615 2
+Extrapolated boot sector and current boot sector are different.
+Warning: Extrapolated boot sector have incorrect values.
+Write new boot!
+
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+
+fat32_boot_sector
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+FAT32 at 0/1/1
+Bad root_cluster
+FAT32 at 0/1/1
+Bad root_cluster
+Boot sector
+Bad root_cluster
+Bad
+
+Backup boot sector
+Bad root_cluster
+Bad
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+rebuild_FAT_BS p_fat12 0, p_fat16 0, p_fat32 1
+fat_find_type(max_offset=60516, p_fat12=0, p_fat16=0, p_fat32=1, debug=1, dump_ind=0)
+FAT32 at 1302(0/22/1), nbr=1
+FAT32 at 8843(1/21/40), nbr=1
+first_fat 1302, second_fat 8843
+FAT : 32, reserved=1302, fat_length=7541
+sectors_per_cluster 8
+next_free 7, free_count 965185
+fat32_find_root_cluster(sectors_per_cluster=8,no_of_cluster=965190,reserved=1302,fat_length=7541,expert=0,first_free_cluster=7)
+Potential root_cluster 2
+       3 -rwxr-xr-x     0      0        15 31-Dec-1999 20:00 TEST.TXT
+       0 -rwxr-xr-x     0      0         0 31-Dec-1999 20:00 TMP.JPG
+Search root cluster stopped:      16385 (2..965191)
+No first-level directory found.
+Extrapolated boot sector and current boot sector are identical.
+Don't write new boot!
+
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+
+fat32_boot_sector
+ 1 P MS Data                       62    7737971    7737910 [NO NAME]
+     FAT32, 3961 MB / 3778 MiB
+FAT32 at 0/1/1
+Bad root_cluster
+FAT32 at 0/1/1
+Bad root_cluster
+Boot sector
+Bad root_cluster
+Bad
+
+Backup boot sector
+Bad root_cluster
+Bad
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+Interface Advanced
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+check_part_gpt failed for partition
+ 1 P MS Data                       62    7737971    7737910
+ 1 P MS Data                       62    7737971    7737910
+gpt_change_part_type
+Change partition type:
+ 1 P MS Data                       62    7737971    7737910
+Change partition type:
+ 1 P FAT32                         62    7737971    7737910
+
+fat32_boot_sector
+ 1 P MS Data                       62    7737971    7737910
+FAT32 at 0/1/1
+Bad root_cluster
+FAT32 at 0/1/1
+Bad root_cluster
+Boot sector
+Bad root_cluster
+Bad
+
+Backup boot sector
+Bad root_cluster
+Bad
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+ 1 P MS Data                       62    7737971    7737910
+rebuild_FAT_BS p_fat12 0, p_fat16 0, p_fat32 1
+fat_find_type(max_offset=60516, p_fat12=0, p_fat16=0, p_fat32=1, debug=1, dump_ind=0)
+FAT32 at 1302(0/22/1), nbr=1
+FAT32 at 8843(1/21/40), nbr=1
+first_fat 1302, second_fat 8843
+FAT : 32, reserved=1302, fat_length=7541
+sectors_per_cluster 8
+next_free 7, free_count 965185
+fat32_find_root_cluster(sectors_per_cluster=8,no_of_cluster=965190,reserved=1302,fat_length=7541,expert=0,first_free_cluster=7)
+Potential root_cluster 2
+       3 -rwxr-xr-x     0      0        15 31-Dec-1999 20:00 TEST.TXT
+       0 -rwxr-xr-x     0      0         0 31-Dec-1999 20:00 TMP.JPG
+Search root cluster failed
+No first-level directory found.
+Extrapolated boot sector and current boot sector are identical.
+Don't write new boot!
+
+ 1 P MS Data                       62    7737971    7737910
+
+fat32_boot_sector
+ 1 P MS Data                       62    7737971    7737910
+FAT32 at 0/1/1
+Bad root_cluster
+FAT32 at 0/1/1
+Bad root_cluster
+Boot sector
+Bad root_cluster
+Bad
+
+Backup boot sector
+Bad root_cluster
+Bad
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+ 1 P MS Data                       62    7737971    7737910
+rebuild_FAT_BS p_fat12 0, p_fat16 0, p_fat32 1
+fat_find_type(max_offset=60516, p_fat12=0, p_fat16=0, p_fat32=1, debug=1, dump_ind=0)
+FAT32 at 1302(0/22/1), nbr=1
+FAT32 at 8843(1/21/40), nbr=1
+first_fat 1302, second_fat 8843
+FAT : 32, reserved=1302, fat_length=7541
+sectors_per_cluster 8
+next_free 7, free_count 965185
+fat32_find_root_cluster(sectors_per_cluster=8,no_of_cluster=965190,reserved=1302,fat_length=7541,expert=0,first_free_cluster=7)
+Potential root_cluster 2
+       3 -rwxr-xr-x     0      0        15 31-Dec-1999 20:00 TEST.TXT
+       0 -rwxr-xr-x     0      0         0 31-Dec-1999 20:00 TMP.JPG
+Search root cluster stopped:      81921 (2..965191)
+No first-level directory found.
+Extrapolated boot sector and current boot sector are identical.
+Don't write new boot!
+
+ 1 P MS Data                       62    7737971    7737910
+
+fat32_boot_sector
+ 1 P MS Data                       62    7737971    7737910
+FAT32 at 0/1/1
+Bad root_cluster
+FAT32 at 0/1/1
+Bad root_cluster
+Boot sector
+Bad root_cluster
+Bad
+
+Backup boot sector
+Bad root_cluster
+Bad
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+fat32_boot_sector
+ 1 P MS Data                       62    7737971    7737910
+FAT32 at 0/1/1
+Bad root_cluster
+FAT32 at 0/1/1
+Bad root_cluster
+Boot sector
+Bad root_cluster
+Bad
+
+Backup boot sector
+Bad root_cluster
+Bad
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+TestDisk exited normally.
