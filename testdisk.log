@@ -1,0 +1,912 @@
+
+
+Wed Oct 22 19:20:03 2014
+Command line: TestDisk
+
+TestDisk 6.13, Data Recovery Utility, November 2011
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 3.11.0-26-generic (#45~precise1-Ubuntu SMP Tue Jul 15 04:02:35 UTC 2014) x86_64
+Compiler: GCC 4.6
+Compilation date: 2012-02-05T07:15:52
+ext2fs lib: 1.42, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, LBA48 support
+/dev/sda: size       351651888 sectors
+/dev/sda: user_max   351651888 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 180 GB / 167 GiB - CHS 21889 255 63, sector size=512 - INTEL SSDSC2BF180A4L, S/N:CVDA3505052W1802GN, FW:LSTi
+Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 960 128 63, sector size=512 - TS-RDF5 SD  Transcend, FW:TS37
+
+Partition table type (auto): Intel
+Disk /dev/sdb - 3965 MB / 3781 MiB - TS-RDF5 SD  Transcend
+Partition table type: EFI GPT
+
+Analyse Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 960 128 63
+Current partition structure:
+Bad GPT partition, invalid signature.
+
+search_part()
+Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 960 128 63
+FAT32 at 1/2/3
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/2/3
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+   P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 1 P MS Data                     8192    7741439    7733248
+simulate write!
+
+TestDisk exited normally.
+
+
+Wed Oct 22 19:25:44 2014
+Command line: TestDisk
+
+TestDisk 6.13, Data Recovery Utility, November 2011
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 3.11.0-26-generic (#45~precise1-Ubuntu SMP Tue Jul 15 04:02:35 UTC 2014) x86_64
+Compiler: GCC 4.6
+Compilation date: 2012-02-05T07:15:52
+ext2fs lib: 1.42, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, LBA48 support
+/dev/sda: size       351651888 sectors
+/dev/sda: user_max   351651888 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 180 GB / 167 GiB - CHS 21889 255 63, sector size=512 - INTEL SSDSC2BF180A4L, S/N:CVDA3505052W1802GN, FW:LSTi
+Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 960 128 63, sector size=512 - TS-RDF5 SD  Transcend, FW:TS37
+
+Partition table type (auto): Intel
+Disk /dev/sdb - 3965 MB / 3781 MiB - TS-RDF5 SD  Transcend
+Partition table type: EFI GPT
+
+Analyse Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 960 128 63
+Current partition structure:
+Bad GPT partition, invalid signature.
+
+search_part()
+Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 960 128 63
+FAT32 at 1/2/3
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/2/3
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+   P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 1 P MS Data                     8192    7741439    7733248
+write!
+No extended partition
+You will have to reboot for the change to take effect.
+
+TestDisk exited normally.
+
+
+Wed Oct 22 19:26:39 2014
+Command line: TestDisk
+
+TestDisk 6.13, Data Recovery Utility, November 2011
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 3.11.0-26-generic (#45~precise1-Ubuntu SMP Tue Jul 15 04:02:35 UTC 2014) x86_64
+Compiler: GCC 4.6
+Compilation date: 2012-02-05T07:15:52
+ext2fs lib: 1.42, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, LBA48 support
+/dev/sda: size       351651888 sectors
+/dev/sda: user_max   351651888 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 180 GB / 167 GiB - CHS 21889 255 63, sector size=512 - INTEL SSDSC2BF180A4L, S/N:CVDA3505052W1802GN, FW:LSTi
+Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62, sector size=512 - TS-RDF5 SD  Transcend, FW:TS37
+
+Partition table type (auto): EFI GPT
+Disk /dev/sdc - 3965 MB / 3781 MiB - TS-RDF5 SD  Transcend
+Partition table type: EFI GPT
+
+Analyse Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+Warning: Incorrect number of heads/cylinder 128 (FAT) != 122 (HD)
+Warning: Incorrect number of sectors per track 63 (FAT) != 62 (HD)
+ 1 P MS Data                     8192    7741439    7733248
+
+search_part()
+Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 1/10/9
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+heads/cylinder 128 (FAT) != 122 (HD)
+sect/track 63 (FAT) != 62 (HD)
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/9
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+   P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 1 P MS Data                     8192    7741439    7733248
+write!
+No extended partition
+You will have to reboot for the change to take effect.
+New options :
+ Dump : No
+ Cylinder boundary : Yes
+ Allow partial last cylinder : No
+ Expert mode : No
+
+Interface Advanced
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+fat32_boot_sector
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+heads/cylinder 128 (FAT) != 122 (HD)
+sect/track 63 (FAT) != 62 (HD)
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+heads/cylinder 128 (FAT) != 122 (HD)
+sect/track 63 (FAT) != 62 (HD)
+Boot sector
+Warning: Incorrect number of heads/cylinder 128 (FAT) != 122 (HD)
+Warning: Incorrect number of sectors per track 63 (FAT) != 62 (HD)
+OK
+
+Backup boot sector
+Warning: Incorrect number of heads/cylinder 128 (FAT) != 122 (HD)
+Warning: Incorrect number of sectors per track 63 (FAT) != 62 (HD)
+OK
+
+First sectors (Boot code and partition information) are not identical.
+Second sectors (cluster information) are not identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+rebuild_FAT_BS p_fat12 0, p_fat16 0, p_fat32 1
+fat_find_type(max_offset=60480, p_fat12=0, p_fat16=0, p_fat32=1, debug=1, dump_ind=0)
+FAT32 at 32(1/10/41), nbr=1
+FAT32 at 7576(2/10/21), nbr=1
+FAT32 at 20608(3/98/33), nbr=1
+FAT32 at 20930(3/103/45), nbr=1
+FAT32 at 20931(3/103/46), nbr=1
+FAT32 at 21025(3/105/16), nbr=1
+FAT32 at 21740(3/116/49), nbr=1
+FAT32 at 21741(3/116/50), nbr=1
+FAT32 at 21742(3/116/51), nbr=1
+FAT32 at 21743(3/116/52), nbr=1
+FAT32 at 21744(3/116/53), nbr=1
+FAT32 at 21745(3/116/54), nbr=1
+FAT32 at 21746(3/116/55), nbr=1
+FAT32 at 21747(3/116/56), nbr=1
+FAT32 at 21748(3/116/57), nbr=1
+FAT32 at 21749(3/116/58), nbr=1
+FAT32 at 21750(3/116/59), nbr=1
+FAT32 at 21751(3/116/60), nbr=1
+FAT32 at 21752(3/116/61), nbr=1
+FAT32 at 21753(3/116/62), nbr=1
+FAT32 at 21754(3/117/1), nbr=1
+FAT32 at 21755(3/117/2), nbr=1
+FAT32 at 21756(3/117/3), nbr=1
+FAT32 at 21757(3/117/4), nbr=1
+FAT32 at 21758(3/117/5), nbr=1
+FAT32 at 21759(3/117/6), nbr=1
+FAT32 at 21866(3/118/51), nbr=1
+FAT32 at 21867(3/118/52), nbr=1
+FAT32 at 21868(3/118/53), nbr=1
+FAT32 at 21869(3/118/54), nbr=1
+FAT32 at 21870(3/118/55), nbr=1
+FAT32 at 21871(3/118/56), nbr=1
+FAT32 at 21872(3/118/57), nbr=1
+FAT32 at 21873(3/118/58), nbr=1
+FAT32 at 21874(3/118/59), nbr=1
+FAT32 at 21875(3/118/60), nbr=1
+FAT32 at 21876(3/118/61), nbr=1
+FAT32 at 21877(3/118/62), nbr=1
+FAT32 at 21878(3/119/1), nbr=1
+FAT32 at 21879(3/119/2), nbr=1
+FAT32 at 21880(3/119/3), nbr=1
+FAT32 at 21881(3/119/4), nbr=1
+FAT32 at 21882(3/119/5), nbr=1
+FAT32 at 21883(3/119/6), nbr=1
+FAT32 at 21884(3/119/7), nbr=1
+FAT32 at 21885(3/119/8), nbr=1
+FAT32 at 21886(3/119/9), nbr=1
+FAT32 at 21887(3/119/10), nbr=1
+FAT32 at 21994(3/120/55), nbr=1
+FAT32 at 21995(3/120/56), nbr=1
+FAT32 at 21996(3/120/57), nbr=1
+FAT32 at 21997(3/120/58), nbr=1
+FAT32 at 21998(3/120/59), nbr=1
+FAT32 at 21999(3/120/60), nbr=1
+FAT32 at 22000(3/120/61), nbr=1
+FAT32 at 22001(3/120/62), nbr=1
+FAT32 at 22002(3/121/1), nbr=1
+FAT32 at 22003(3/121/2), nbr=1
+FAT32 at 22004(3/121/3), nbr=1
+FAT32 at 22005(3/121/4), nbr=1
+FAT32 at 22006(3/121/5), nbr=1
+FAT32 at 22007(3/121/6), nbr=1
+FAT32 at 22008(3/121/7), nbr=1
+FAT32 at 22009(3/121/8), nbr=1
+FAT32 at 22010(3/121/9), nbr=1
+FAT32 at 22011(3/121/10), nbr=1
+FAT32 at 22012(3/121/11), nbr=1
+FAT32 at 22013(3/121/12), nbr=1
+FAT32 at 22014(3/121/13), nbr=1
+FAT32 at 22015(3/121/14), nbr=1
+FAT32 at 24682(4/42/15), nbr=1
+FAT32 at 24683(4/42/16), nbr=1
+FAT32 at 24684(4/42/17), nbr=1
+FAT32 at 24685(4/42/18), nbr=1
+FAT32 at 24686(4/42/19), nbr=1
+FAT32 at 24687(4/42/20), nbr=1
+FAT32 at 24688(4/42/21), nbr=1
+FAT32 at 24689(4/42/22), nbr=1
+FAT32 at 24690(4/42/23), nbr=1
+FAT32 at 24691(4/42/24), nbr=1
+FAT32 at 24692(4/42/25), nbr=1
+FAT32 at 24693(4/42/26), nbr=1
+FAT32 at 24694(4/42/27), nbr=1
+FAT32 at 24695(4/42/28), nbr=1
+FAT32 at 24696(4/42/29), nbr=1
+FAT32 at 24697(4/42/30), nbr=1
+FAT32 at 24698(4/42/31), nbr=1
+FAT32 at 24699(4/42/32), nbr=1
+FAT32 at 24700(4/42/33), nbr=1
+FAT32 at 24701(4/42/34), nbr=1
+FAT32 at 24702(4/42/35), nbr=1
+FAT32 at 24703(4/42/36), nbr=1
+first_fat 32, second_fat 7576
+FAT : 32, reserved=32, fat_length=7544
+sectors_per_cluster 8
+next_free 22, free_count 964746
+fat32_find_root_cluster(sectors_per_cluster=8,no_of_cluster=964766,reserved=32,fat_length=7544,expert=0,first_free_cluster=22)
+Potential root_cluster 2
+      17 drwxr-xr-x     0      0         0 22-Oct-2014 15:17 .Trash-1000
+             New / Current boot sector
+FAT32
+sector_size  512 512
+cluster_size 8 8
+reserved     32 32
+fats         2 2
+dir_entries  0 0
+sectors      0 0
+media        F8 F8
+fat_length   0 0
+secs_track   62 63
+heads        122 128
+hidden       8192 0
+total_sect   7733248 7733248
+fat32_length 7544 7544
+flags        0000 0000
+version      0.0  0.0
+root_cluster 2 2
+info_sector  1 1
+backup_boot  6 6
+free_count   18446744073709551615 964746
+next_free    18446744073709551615 21
+Extrapolated boot sector and current boot sector are different.
+Write new boot!
+
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+fat32_boot_sector
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+Boot sector
+OK
+
+Backup boot sector
+OK
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+fat32_boot_sector
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+Boot sector
+OK
+
+Backup boot sector
+OK
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+repair_FAT_table cluster=2..964767
+FATs seems Ok, nothing to do.
+
+fat32_boot_sector
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+Boot sector
+OK
+
+Backup boot sector
+OK
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+Partition table type (auto): EFI GPT
+Disk /dev/sdc - 3965 MB / 3781 MiB - TS-RDF5 SD  Transcend
+Partition table type: EFI GPT
+
+Analyse Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P MS Data                     8192    7741439    7733248
+
+search_part()
+Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 1/10/9
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/9
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+   P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 1 P MS Data                     8192    7741439    7733248
+write!
+No extended partition
+You will have to reboot for the change to take effect.
+
+Analyse Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P MS Data                     8192    7741439    7733248
+
+search_part()
+Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 1/10/9
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/9
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+   P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 1 P MS Data                     8192    7741439    7733248
+
+search_part()
+Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 1/10/9
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/9
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/15
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/15
+     MS Data                     8198    7741445    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+     MS Data                     8198    7741445    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 
+No partition found or selected for recovery
+simulate write!
+
+Analyse Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P MS Data                     8192    7741439    7733248
+
+search_part()
+Disk /dev/sdc - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 1/10/9
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/9
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+   P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 1 P MS Data                     8192    7741439    7733248
+write!
+No extended partition
+You will have to reboot for the change to take effect.
+
+Interface Advanced
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+fat32_boot_sector
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+Boot sector
+OK
+
+Backup boot sector
+OK
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+repair_FAT_table cluster=2..964767
+FATs seems Ok, nothing to do.
+
+fat32_boot_sector
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+Boot sector
+OK
+
+Backup boot sector
+OK
+
+Sectors are identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+
+TestDisk exited normally.
+
+
+Wed Oct 22 19:56:29 2014
+Command line: TestDisk
+
+TestDisk 6.13, Data Recovery Utility, November 2011
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 3.11.0-26-generic (#45~precise1-Ubuntu SMP Tue Jul 15 04:02:35 UTC 2014) x86_64
+Compiler: GCC 4.6
+Compilation date: 2012-02-05T07:15:52
+ext2fs lib: 1.42, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, LBA48 support
+/dev/sda: size       351651888 sectors
+/dev/sda: user_max   351651888 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 180 GB / 167 GiB - CHS 21889 255 63, sector size=512 - INTEL SSDSC2BF180A4L, S/N:CVDA3505052W1802GN, FW:LSTi
+Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 1023 122 62, sector size=512 - TS-RDF5 SD  Transcend, FW:TS37
+
+Partition table type (auto): EFI GPT
+Disk /dev/sdb - 3965 MB / 3781 MiB - TS-RDF5 SD  Transcend
+Partition table type: EFI GPT
+
+Interface Advanced
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+gpt_change_part_type
+Change partition type:
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+Change partition type:
+ 1 P FAT32                       8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+gpt_change_part_type
+Change partition type:
+ 1 P Linux LVM                   8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+Change partition type:
+ 1 P FAT32                       8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+fat32_boot_sector
+ 1 P Linux LVM                   8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+FAT32 at 1/10/9
+Info: size boot_sector 7733248, partition 7733248
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+Boot sector
+OK
+
+Backup boot sector
+OK
+
+First sectors (Boot code and partition information) are not identical.
+
+A valid FAT Boot sector must be present in order to access
+any data; even if the partition is not bootable.
+gpt_change_part_type
+Change partition type:
+ 1 P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+Change partition type:
+ 1 P FAT32                       8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+New options :
+ Dump : No
+ Cylinder boundary : Yes
+ Allow partial last cylinder : No
+ Expert mode : No
+
+Analyse Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 1023 122 62
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=7744511 (expected 7744511)
+hdr_lba_start=34
+hdr_lba_end=7744478
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P MS Data                     8192    7741439    7733248
+
+search_part()
+Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 1/10/9
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/9
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+Results
+   P MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 1 P MS Data                     8192    7741439    7733248
+
+search_part()
+Disk /dev/sdb - 3965 MB / 3781 MiB - CHS 1023 122 62
+FAT32 at 1/10/9
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/9
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+FAT32 at 1/10/15
+FAT1 : 32-7575
+FAT2 : 7576-15119
+start_rootdir : 15120 root cluster : 2
+Data : 15120-7733247
+sectors : 7733248
+cluster_size : 8
+no_of_cluster : 964766 (2 - 964767)
+fat_length 7544 calculated 7538
+set_FAT_info: name from BS used
+
+FAT32 at 1/10/15
+     MS Data                     8198    7741445    7733248
+     FAT32, 3959 MB / 3776 MiB
+Search for partition aborted
+
+Results
+     MS Data                     8192    7741439    7733248
+     FAT32, 3959 MB / 3776 MiB
+     MS Data                     8198    7741445    7733248
+     FAT32, 3959 MB / 3776 MiB
+
+interface_write()
+ 
+No partition found or selected for recovery
+simulate write!
+
+TestDisk exited normally.

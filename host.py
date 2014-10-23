@@ -5,7 +5,7 @@ from xbee import XBee
 ser = serial.Serial('/dev/ttyUSB0', 19200)
 
 def getImg():
-	jpg_file = open("tmp/tmp.jpg", 'w')
+	jpg_file = open("tmp/test.jpg", 'w')
 	ser.write('G')
 	size = struct.unpack("h",ser.read(2))[0]
 	print("File size is:", size)
@@ -34,7 +34,7 @@ def getImg():
 	print(ser.readline())
 
 	jpg_file.close();
-	Image.open('tmp/tmp.jpg').show()
+	Image.open('tmp/test.jpg').show()
 
 
 
@@ -50,17 +50,20 @@ while 1:
 		key = getch()
 		if key in ('t', 'capture'):
 			ser.write('T')
-			#print(ser.readline())
-		if key in ('g', 'get'):
+			print(ser.readline())
+		elif key in ('g', 'get'):
 			print("Start to receive picture")
 			getImg()
-		if key in ('b', 'big'):
+		elif key in ('b', 'big'):
 			ser.write('B')
 			print("Start to receive big image!")
-		if key in ('z', 'size'):
+		elif key in ('z', 'size'):
 			ser.write('Z')
 			print(ser.readline())
-		if key in ('q', 'quit'):
+		elif key in ('w', 'write'):
+			ser.write('W')
+			print(ser.readline())
+		elif key in ('q', 'quit'):
 			break
 	bytesToRead = ser.inWaiting()
 	mystring = ser.read(bytesToRead)
