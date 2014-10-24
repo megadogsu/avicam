@@ -25,7 +25,7 @@ def getImg():
 	i = 0
 	terminal = '\n'
 	resend = 'R'
-	buffsize = 256
+	buffsize = 400
 	
 	while i < size:
 		if i > size-buffsize:

@@ -10,8 +10,8 @@ SdFile myFile;
 const uint8_t chipSelect = 4;
 
 
-#define SDBuffSize 50
-#define XBeeBuffSize 256
+#define SDBuffSize 62
+#define XBeeBuffSize 400
 #define RetryDelay 20
 
 void setup()
@@ -110,8 +110,9 @@ void loop()
           			Serial.write('#');
           			while(Serial.available() < 4){}
           			Serial.readBytes(sizebytes,4);
-          			fileSize = (makeWord(sizebytes[0], sizebytes[1]) << 8) + makeWord(sizebytes[2], sizebytes[3]);
+          			fileSize = (makeWord(sizebytes[3], sizebytes[2]) << 16) + makeWord(sizebytes[1], sizebytes[0]);
           			Serial.println(fileSize);
+          			Serial.write((uint8_t*)sizebytes,4);
           			
           			i = 0; 
           			error = 0;

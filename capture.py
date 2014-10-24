@@ -16,7 +16,7 @@ def capture():
 	global cam
 	global ser
 	img = cam.getImage()
-	#img = img.scale(32,18)
+	img = img.scale(640,360)
 	#d = img.show()
 	img.save("tmp/capture.jpg",'JPEG',quality=60) 
 	call(["image_optim", "tmp/capture.jpg"])
@@ -24,14 +24,16 @@ def capture():
 	size = os.path.getsize("tmp/capture.jpg")
 	print("File size:", size, "bytes")
 	byte = struct.pack("I",size)
+	print(repr(byte))
 	ser.write(byte)
 	print(ser.readline()[:-1])
+	print(repr(ser.read(4)))
 	capture = open("tmp/capture.jpg","rb").read()
 
 	i = 0
 	size = len(capture)
 	terminal = '\n'
-	buffsize = 50
+	buffsize = 62
 	while i < size:
 		ser.write(capture[i:i+buffsize])
 		ser.write(terminal)
