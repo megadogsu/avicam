@@ -110,7 +110,7 @@ void loop()
           			Serial.write('#');
           			while(Serial.available() < 4){}
           			Serial.readBytes(sizebytes,4);
-          			fileSize = (makeWord(sizebytes[3], sizebytes[2]) << 16) + makeWord(sizebytes[1], sizebytes[0]);
+          			fileSize = ((unsigned long)makeWord(sizebytes[3], sizebytes[2]) << 16) + makeWord(sizebytes[1], sizebytes[0]);
           			Serial.println(fileSize);
           			Serial.write((uint8_t*)sizebytes,4);
           			

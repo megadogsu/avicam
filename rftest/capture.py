@@ -16,9 +16,10 @@ def capture():
 	global cam
 	global ser
 	img = cam.getImage()
-	img = img.scale(640,360)
+	img = img.scale(1920,1080)
 	#d = img.show()
-	img.save("tmp/capture.jpg",'JPEG',quality=60) 
+	
+	img.save("tmp/capture.jpg",'JPEG',quality=90) 
 	call(["image_optim", "tmp/capture.jpg"])
 
 	size = os.path.getsize("tmp/capture.jpg")
@@ -58,7 +59,7 @@ class Capture():
 		global ser
 		global cam
 		ser = serial.Serial('/dev/ttyACM0', 57600, timeout=None)
-		cam = Camera(prop_set={"width":1280,"height":720}) 
+		cam = Camera(prop_set={"width":1920,"height":1080}) 
 		
 		while True:
 			key = ser.read()
