@@ -235,13 +235,6 @@ const struct sensor_reg OV5642_5M_Pixel_setting[] PROGMEM = {
 	{0x3805 ,0x20},
 	{0x3806 ,0x07},
 	{0x3807 ,0x98},
-	{0x3809 ,0x80},
-	{0x380a ,0x04},
-	{0x380b ,0x38},
-	{0x380c ,0x09},
-	{0x380d ,0xd6},
-	{0x380e ,0x04},
-	{0x380f ,0x58},
 	{0x381c ,0x11},
 	{0x381d ,0xba},
 	{0x381e ,0x04},
@@ -732,18 +725,17 @@ void Capture::save_SD()
     {
     	temp_first = temp;
     	temp = myCAM.read_fifo();
-      	mySerial.println(temp);
     }
     //Write first image data to buffer
     buf[i++] = temp_first;
     buf[i++] = temp;
+    mySerial.println("SOI Detected");
 	
     //Read JPEG data from FIFO
     while( (temp != 0xD9) | (temp_last != 0xFF) )
     {
       	temp_last = temp;
       	temp = myCAM.read_fifo();
-      	mySerial.println(temp);
       	//Write image data to buffer if not full
       	if(i < SDBuffSize)
         	buf[i++] = temp;
