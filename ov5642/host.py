@@ -5,7 +5,7 @@ import atexit
 
 
 
-ser = serial.Serial('/dev/ttyUSB0', 19200)
+ser = serial.Serial('/dev/ttyUSB0', 58824)
 
 def getImg():
 	jpg_file = open("../tmp/test.jpg", 'w')
@@ -75,6 +75,9 @@ while 1:
 			print(ser.readline())
 		elif key in ('q', 'quit'):
 			break
+#	echo = ser.read(ser.inWaiting())
+#	if echo:
+#		print(echo)
 	bytesToRead = ser.inWaiting()
 	mystring = ser.read(bytesToRead)
 	sys.stdout.write(mystring)
