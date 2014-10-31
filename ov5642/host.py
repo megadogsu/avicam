@@ -19,7 +19,7 @@ def getImg():
 	i = 0
 	terminal = '\n'
 	resend = 'R'
-	buffsize = 128
+	buffsize = 512
 	
 	while i < size:
 		if i > size-buffsize:

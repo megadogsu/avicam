@@ -45,10 +45,10 @@ void XBeeData::transfer()
           	}while(echo != terminal);
 		}
         // close the file:
-        Host.print("Transfer Done! Total:");
+        Host.print(F("Transfer Done! Total:"));
         Host.println(myFile.size());
         myFile.close();
     }else{
-        Host.println("Fault opening files");
+        Host.println(F("Fault opening files"));
     }
 }

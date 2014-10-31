@@ -14,18 +14,16 @@
 // This program requires the ArduCAM V3.1.0 (or later) library and Rev.C ArduCAM shield
 // and use Arduino IDE 1.5.2 compiler or above
 
-#include <SoftwareSerial.h>
 #include <SD.h>
 #include "camera.h"
 #include "xbee.h"
 #include "host.h"
-#include <SoftwareSerial.h>
 
 #define SD_CS 9 
 
 ArduCAM myCAM(OV5642,SPI_CS);
 
-HostHelper Host(2,3); //RXPin, TXPin	
+HostHelper Host;
 
 void setup()
 {
@@ -42,10 +40,12 @@ void setup()
 	
   	while(Serial.available() < 0){}
   	while(Host.available() < 0){}
+	
+	Host.checkMem();
+  		
+  	Serial.println(F("Serial Link OK"));
   	
-  	Serial.println("Serial Link OK");
-  	
-  	Host.println("XBee Link OK");
+  	Host.println(F("XBee Link OK"));
   	// set the SPI_CS as an output:
   	pinMode(SPI_CS, OUTPUT);
   	pinMode(IRIS_PIN, OUTPUT);
@@ -57,7 +57,7 @@ void setup()
   	temp = myCAM.read_reg(ARDUCHIP_TEST1);
   	if(temp != 0x55)
   	{
-  	  	Host.println("SPI interface Error!");
+  	  	Host.println(F("SPI interface Error!"));
   	  	while(1);
   	}
 
@@ -69,9 +69,9 @@ void setup()
   	myCAM.rdSensorReg16_8(OV5642_CHIPID_HIGH, &vid);
   	myCAM.rdSensorReg16_8(OV5642_CHIPID_LOW, &pid);
   	if((vid != 0x56) || (pid != 0x42))
-  	  	Host.println("Can't find OV5642 module!");
+  	  	Host.println(F("Can't find OV5642 module!"));
   	else
-  	  	Host.println("OV5642 detected");
+  	  	Host.println(F("OV5642 detected"));
 
   	//Change to BMP capture mode and initialize the OV5642 module	  	
   	//myCAM.set_format(BMP);
@@ -96,16 +96,18 @@ void setup()
   	if (!SD.begin(SD_CS)) 
   	{
       	//while (1);		//If failed, stop here
-      	Host.println("SD Card Error");
+      	Host.println(F("SD Card Error"));
   	}
   	else{
-      	Host.println("SD Card detected!");
-  	  	Host.println("initialization done.");
+      	Host.println(F("SD Card detected!"));
+  	  	Host.println(F("initialization done."));
+		Host.checkMem();
   	}
 }
 
 void loop()
 {
+	
   	if (Host.available())
   	{ // If data comes in from serial monitor, send it out to XBee
     	char key; 
@@ -122,7 +124,7 @@ void loop()
       			delete xbeeData;
       			break;
       		case 'T':
-				Host.println("Capture Signal Received");
+				Host.println(F("Capture Signal Received"));
 				capture = new Capture();
 				capture->start();
 				Host.checkMem();
@@ -131,11 +133,11 @@ void loop()
 				Host.checkMem();
 				break;
       		case 'O':
-				Host.println("Opening Iris");
+				Host.println(F("Opening Iris"));
       			digitalWrite(IRIS_PIN,HIGH);
         		break;
       		case 'C':
-				Host.println("Closing Iris");
+				Host.println(F("Closing Iris"));
       			digitalWrite(IRIS_PIN,LOW);
       			break;
     		default:
@@ -143,6 +145,5 @@ void loop()
     			break;
   		}
 	}
-
 }
 
