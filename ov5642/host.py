@@ -8,17 +8,18 @@ import atexit
 ser = serial.Serial('/dev/ttyUSB0', 19200)
 
 def getImg():
-	jpg_file = open("tmp/test.jpg", 'w')
+	jpg_file = open("../tmp/test.jpg", 'w')
 	ser.write('G')
+	print(ser.readline()[:-1])
 	byte = ser.read(4)
-	#print(''.join('%02x'%ord(i) for i in byte))
+	print(''.join('%02x'%ord(i) for i in byte))
 	size = struct.unpack("I",byte)[0]
 	print("File size is:", size)
 	
 	i = 0
 	terminal = '\n'
 	resend = 'R'
-	buffsize = 400
+	buffsize = 128
 	
 	while i < size:
 		if i > size-buffsize:
@@ -40,7 +41,7 @@ def getImg():
 	print(ser.readline()[:-1])
 
 	jpg_file.close();
-	Image.open('tmp/test.jpg').show()
+	Image.open('../tmp/test.jpg').show()
 
 
 bytesToRead = ser.inWaiting()
@@ -55,13 +56,14 @@ while 1:
 		key = getch()
 		if key in ('t', 'capture'):
 			ser.write('T')
-			print(ser.readline())
+			print(ser.readline()[:-1])
 		elif key in ('g', 'get'):
 			print("Start to receive picture")
 			getImg()
-		elif key in ('b', 'big'):
-			ser.write('B')
-			print("Start to receive big image!")
+		elif key in ('o', 'open'):
+			ser.write('O')
+		elif key in ('c', 'close'):
+			ser.write('C')
 		elif key in ('z', 'size'):
 			ser.write('Z')
 			print(ser.readline())
