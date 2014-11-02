@@ -16,7 +16,7 @@ void HostHelper::checkMem(){
 
 
 void HostHelper::listFiles(File dir, int numTabs){
-   	while(true) {
+	while(true) {
      	File entry =  dir.openNextFile();
      	if (! entry) {
        		// no more files
@@ -36,6 +36,7 @@ void HostHelper::listFiles(File dir, int numTabs){
      	}
      	entry.close();
    	}
+	dir.close();
 }
 
 
@@ -47,8 +48,17 @@ bool HostHelper::available(){
 	return Serial.available();
 }
 
-int HostHelper::fileCount(){
-	return FileCount;
+int HostHelper::fileCount(File dir){
+	int FileCount = 0;   
+	while(true) {
+     	File entry =  dir.openNextFile();
+     	if (! entry) {
+       		return FileCount;
+       		break;
+     	}
+		FileCount++;
+	}
+	dir.close();
 }
 
 

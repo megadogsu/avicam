@@ -20,11 +20,9 @@ class HostHelper{
 		byte read();
 		void begin(unsigned long);
 		bool available();
-		int fileCount();
-		void listFiles(File dir, int numTabs = 1);
+		int fileCount(File dir = SD.open("/"));
+		void listFiles(File dir = SD.open("/"), int numTabs = 0);
 	private:
-		//SoftwareSerial HostSerial;
-		int FileCount;
 };
 
 template<class T>void HostHelper::print(T str){

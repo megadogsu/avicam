@@ -50,7 +50,7 @@ void Capture::save_SD()
     {
     	temp_first = temp;
     	temp = myCAM.read_fifo();
-		Host.print(temp,HEX);
+		//Host.print(temp,HEX);
     }
     //Write first image data to buffer
     buf[i++] = temp_first;

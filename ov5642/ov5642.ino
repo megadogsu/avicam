@@ -80,8 +80,9 @@ void setup()
 
 	delay(100);
 	//myCAM.wrSensorRegs16_8(OV5642_default_setting);
-	//myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
-	myCAM.wrSensorRegs16_8(OV5642_5M_Pixel_setting);
+	myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
+	//myCAM.wrSensorRegs16_8(OV5642_JPEG_Capture_QSXGA);
+	//myCAM.wrSensorRegs16_8(OV5642_5M_Pixel_setting);
 	myCAM.rdSensorReg16_8(0x3818,&reg_val);
 	myCAM.wrSensorReg16_8(0x3818, (reg_val | 0x20) & 0xBf);
 	myCAM.rdSensorReg16_8(0x3621,&reg_val);
@@ -110,7 +111,6 @@ void loop()
     	char key; 
 		Capture *capture = NULL;
 		XBeeData *xbeeData = NULL;
-		File root;
 
 		while(Host.available() < 1){}
 		key = Host.read();
@@ -139,8 +139,7 @@ void loop()
       			digitalWrite(IRIS_PIN,LOW);
       			break;
       		case 'L':
-      			root = SD.open("/");
-				Host.listFiles(root);
+				Host.listFiles();
       			break;
     		default:
     			break;

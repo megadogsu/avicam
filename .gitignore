@@ -4,3 +4,4 @@ tmp/*
 etc/*
 *.pyc
 *.spec
+*.swp
