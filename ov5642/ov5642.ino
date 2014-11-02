@@ -35,16 +35,13 @@ void setup()
 #if defined(__arm__)
     Wire1.begin(); 
 #endif
-  	Serial.begin(115200);
-  	Host.begin(57600);
-	
-  	while(Serial.available() < 0){}
+  	Host.begin(115200);
   	while(Host.available() < 0){}
-	
+	UBRR0L = 17;
+
 	Host.checkMem();
-  		
-  	Serial.println(F("Serial Link OK"));
-  	
+
+
   	Host.println(F("XBee Link OK"));
   	// set the SPI_CS as an output:
   	pinMode(SPI_CS, OUTPUT);
@@ -82,8 +79,9 @@ void setup()
 	myCAM.wrSensorReg16_8(0x3008, 0x80);
 
 	delay(100);
-	//myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
-	myCAM.wrSensorRegs16_8(OV5642_5M_Pixel_setting);
+	//myCAM.wrSensorRegs16_8(OV5642_default_setting);
+	myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
+	//myCAM.wrSensorRegs16_8(OV5642_5M_Pixel_setting);
 	myCAM.rdSensorReg16_8(0x3818,&reg_val);
 	myCAM.wrSensorReg16_8(0x3818, (reg_val | 0x20) & 0xBf);
 	myCAM.rdSensorReg16_8(0x3621,&reg_val);
@@ -107,12 +105,12 @@ void setup()
 
 void loop()
 {
-	
-  	if (Host.available())
-  	{ // If data comes in from serial monitor, send it out to XBee
+	if(Host.available()){
+  		// If data comes in from serial monitor, send it out to XBee
     	char key; 
 		Capture *capture = NULL;
 		XBeeData *xbeeData = NULL;
+		File root;
 
 		while(Host.available() < 1){}
 		key = Host.read();
@@ -140,10 +138,13 @@ void loop()
 				Host.println(F("Closing Iris"));
       			digitalWrite(IRIS_PIN,LOW);
       			break;
+      		case 'L':
+      			root = SD.open("/");
+				Host.listFiles(root);
+      			break;
     		default:
-    			Host.write(key);
     			break;
   		}
-	}
+  	}
 }
 

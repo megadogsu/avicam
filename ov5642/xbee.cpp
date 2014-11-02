@@ -15,7 +15,7 @@ void XBeeData::transfer()
     itoa(Host.fileCount() , str, 10); 
     strcat(str,".jpg");
     //Host.println(str);
-    myFile = SD.open("1.JPG", O_READ);
+    myFile = SD.open(str, O_READ);
     if(myFile){
         fileSize = myFile.size();
         //Host.println(fileSize);

@@ -32,8 +32,7 @@ void Capture::save_SD()
 
 	//Host -> checkMem();
     //Construct a file name
-    k = k + 1;
-    itoa(k, str, 10); 
+    itoa(Host.fileCount(), str, 10); 
     strcat(str,".jpg");
     //Open the new file  
     outFile = SD.open(str,O_WRITE | O_CREAT | O_TRUNC);
@@ -51,6 +50,7 @@ void Capture::save_SD()
     {
     	temp_first = temp;
     	temp = myCAM.read_fifo();
+		//Host.print(temp,HEX);
     }
     //Write first image data to buffer
     buf[i++] = temp_first;
