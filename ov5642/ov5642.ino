@@ -80,11 +80,14 @@ void setup()
 
 	delay(100);
 	//myCAM.wrSensorRegs16_8(OV5642_default_setting);
-	myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
+	//myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
 	//myCAM.wrSensorRegs16_8(OV5642_JPEG_Capture_QSXGA);
-	//myCAM.wrSensorRegs16_8(OV5642_5M_Pixel_setting);
+	myCAM.wrSensorRegs16_8(OV5642_avicam_setting);
+	//myCAM.wrSensorRegs16_8(OV5642_JPEG_Capture_QSXGA);
 	myCAM.rdSensorReg16_8(0x3818,&reg_val);
-	myCAM.wrSensorReg16_8(0x3818, (reg_val | 0x20) & 0xBf);
+	myCAM.wrSensorReg16_8(0x3818, (reg_val | 0x38) & 0xBF);
+	myCAM.rdSensorReg16_8(0x4606,&reg_val);
+	myCAM.wrSensorReg16_8(0x4606, (reg_val | 0x10));
 	myCAM.rdSensorReg16_8(0x3621,&reg_val);
 	myCAM.wrSensorReg16_8(0x3621, reg_val | 0x20);
 
@@ -108,9 +111,11 @@ void loop()
 {
 	if(Host.available()){
   		// If data comes in from serial monitor, send it out to XBee
-    	char key; 
+    	char key, str[16];
+    	unsigned len; 
 		Capture *capture = NULL;
 		XBeeData *xbeeData = NULL;
+		
 
 		while(Host.available() < 1){}
 		key = Host.read();
@@ -140,6 +145,18 @@ void loop()
       			break;
       		case 'L':
 				Host.listFiles();
+      			break;
+      		case 'M':
+				Host.checkMem();
+      			break;
+      		case 'R':
+				len = Host.readBytesUntil('\n', str, 16);   
+				str[len] = '\0';
+				if(SD.remove(str))
+					Host.println(F("Successful removed"));   		
+				else
+					Host.println(F("Failed removing"));   		
+				Host.checkMem();
       			break;
     		default:
     			break;

@@ -70,11 +70,14 @@ while 1:
 		elif key in ('w', 'write'):
 			ser.write('W')
 			print(ser.readline())
-		elif key in ('r', 'read'):
+		elif key in ('r', 'remove'):
 			ser.write('R')
-			print(ser.readline())
+			sys.stdin.read(1)
+			ser.write(sys.stdin.readline());
 		elif key in ('l', 'list'):
 			ser.write('L')
+		elif key in ('m', 'memory'):
+			ser.write('M')
 		elif key in ('q', 'quit'):
 			break
 #	echo = ser.read(ser.inWaiting())

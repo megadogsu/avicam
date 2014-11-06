@@ -32,7 +32,7 @@ void Capture::save_SD()
 
 	//Host -> checkMem();
     //Construct a file name
-    itoa(Host.fileCount(), str, 10); 
+    itoa(Host.fileCount()+1, str, 10); 
     strcat(str,".jpg");
     //Open the new file  
     outFile = SD.open(str,O_WRITE | O_CREAT | O_TRUNC);
@@ -62,7 +62,8 @@ void Capture::save_SD()
     {
       	temp_last = temp;
       	temp = myCAM.read_fifo();
-      	//Write image data to buffer if not full
+      	//Host.print(temp,HEX);
+		//Write image data to buffer if not full
       	if(i < SDBuffSize)
         	buf[i++] = temp;
       	else
@@ -72,7 +73,7 @@ void Capture::save_SD()
         		Host.println(F("Waiting SD I/O"));
         		delay(RetryDelay);
         		//Host -> checkMem();
-				Host.println(outFile.write(buf,SDBuffSize));
+				//Host.println(outFile.write(buf,SDBuffSize));
         	};
         	i = 0;
         	buf[i++] = temp;
@@ -85,7 +86,7 @@ void Capture::save_SD()
         	delay(RetryDelay);
     	};
     }
-
+	
     //Close the file 
     outFile.close(); 
     total_time = millis() - total_time;

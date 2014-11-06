@@ -7,6 +7,7 @@ HostHelper::HostHelper(uint8_t RX, uint8_t TX)
 
 void HostHelper::begin(unsigned long baud){
 	Serial.begin(baud);
+	Serial.setTimeout(10000);
 }
 
 void HostHelper::checkMem(){
@@ -15,11 +16,14 @@ void HostHelper::checkMem(){
 }
 
 
-void HostHelper::listFiles(File dir, int numTabs){
+void HostHelper::listFiles(File dir,int numTabs){
+	//File root = SD.open("/");
+	dir.seek(0);
 	while(true) {
      	File entry =  dir.openNextFile();
      	if (! entry) {
        		// no more files
+			dir.close();
        		break;
      	}
      	for (uint8_t i=0; i<numTabs; i++) {
@@ -28,7 +32,7 @@ void HostHelper::listFiles(File dir, int numTabs){
      	print(entry.name());
      	if (entry.isDirectory()) {
        		println("/");
-       		listFiles(entry, numTabs+1);
+			listFiles(entry, numTabs+1);
      	} else {
        		// files have sizes, directories do not
        		print("\t\t");
@@ -36,7 +40,6 @@ void HostHelper::listFiles(File dir, int numTabs){
      	}
      	entry.close();
    	}
-	dir.close();
 }
 
 
@@ -44,21 +47,29 @@ byte HostHelper::read(){
 	return Serial.read();
 }
 
+byte HostHelper::readBytesUntil(char terminal, char* buffer, unsigned int length){
+	return Serial.readBytesUntil(terminal, buffer, length);
+}
+
+
 bool HostHelper::available(){
 	return Serial.available();
 }
 
 int HostHelper::fileCount(File dir){
-	int FileCount = 0;   
+	int FileCount = 0;
+	//File root = SD.open("/");
+	dir.seek(0);
 	while(true) {
      	File entry =  dir.openNextFile();
      	if (! entry) {
+			dir.close();
        		return FileCount;
        		break;
      	}
+		entry.close();
 		FileCount++;
 	}
-	dir.close();
 }
 
 
