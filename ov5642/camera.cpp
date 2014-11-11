@@ -86,6 +86,48 @@ void Capture::save_SD()
         	delay(RetryDelay);
     	};
     }
+
+	/*	
+	i = 0;
+	unsigned thumbbytes = 0;
+    Host.println(F("Started Thumbnail"));
+    while( (temp != 0xD8) | (temp_first != 0xFF))
+    {
+    	temp_first = temp;
+    	temp = myCAM.read_fifo();
+		thumbbytes++;
+		Host.print(temp,HEX);
+    }
+    
+	buf[i++] = temp_first;
+    buf[i++] = temp;
+	Host.print('\n');
+    Host.println(F("SOI Detected"));
+    Host.println(thumbbytes);
+    
+	while( (temp != 0xD9) | (temp_last != 0xFF) )
+    {
+      	temp_last = temp;
+      	temp = myCAM.read_fifo();
+      	//Host.print(temp,HEX);
+		//Write image data to buffer if not full
+      	if(i < SDBuffSize)
+        	buf[i++] = temp;
+      	else
+      	{
+        	//Write SDBuffSize bytes image data to file
+        	while(outFile.write(buf,SDBuffSize) != SDBuffSize){
+        		Host.println(F("Waiting SD I/O"));
+        		delay(RetryDelay);
+        		//Host -> checkMem();
+				//Host.println(outFile.write(buf,SDBuffSize));
+        	};
+        	i = 0;
+        	buf[i++] = temp;
+      	}
+    }
+	*/	
+
 	
     //Close the file 
     outFile.close(); 

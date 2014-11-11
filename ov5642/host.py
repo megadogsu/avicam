@@ -56,7 +56,18 @@ while 1:
 		key = getch()
 		if key in ('t', 'capture'):
 			ser.write('T')
-			print(ser.readline()[:-1])
+#			print(ser.readline()[:-1])
+#			print(ser.readline()[:-1])
+#			print(ser.readline()[:-1])
+#			print(ser.readline()[:-1])
+#			print(ser.readline()[:-1])
+#			print(ser.readline()[:-1])
+#			hexstring = ser.readline()[:-1]
+#			hexstring = hexstring[len(hexstring)%2:]
+#			hex_data = hexstring.decode("hex")
+#			print(repr(hex_data))
+#			with open("hex1.txt", "wb") as f:
+#				f.write(hex_data)
 		elif key in ('g', 'get'):
 			print("Start to receive picture")
 			getImg()
@@ -78,6 +89,8 @@ while 1:
 			ser.write('L')
 		elif key in ('m', 'memory'):
 			ser.write('M')
+		elif key in ('e', 'erase'):
+			ser.write('E')
 		elif key in ('q', 'quit'):
 			break
 #	echo = ser.read(ser.inWaiting())

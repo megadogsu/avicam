@@ -42,6 +42,19 @@ void HostHelper::listFiles(File dir,int numTabs){
    	}
 }
 
+void HostHelper::eraseFiles(File dir){
+	dir.seek(0);
+	while(true) {
+     	File entry =  dir.openNextFile();
+     	if (! entry) {
+       		// no more files
+			dir.close();
+       		break;
+     	}
+		SD.remove(entry.name());		
+		entry.close();
+   	}
+}
 
 byte HostHelper::read(){
 	return Serial.read();
@@ -49,6 +62,11 @@ byte HostHelper::read(){
 
 byte HostHelper::readBytesUntil(char terminal, char* buffer, unsigned int length){
 	return Serial.readBytesUntil(terminal, buffer, length);
+}
+
+void HostHelper::readUntil(char terminal, char* buffer, unsigned int length){
+	int len = Serial.readBytesUntil(terminal, buffer, length);
+	buffer[len] = '\0';
 }
 
 

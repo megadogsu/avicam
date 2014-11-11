@@ -83,13 +83,37 @@ void setup()
 	//myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
 	//myCAM.wrSensorRegs16_8(OV5642_JPEG_Capture_QSXGA);
 	myCAM.wrSensorRegs16_8(OV5642_avicam_setting);
-	//myCAM.wrSensorRegs16_8(OV5642_JPEG_Capture_QSXGA);
+	//myCAM.wrSensorRegs16_8(OV5642_VGA_preview_setting);
+	
 	myCAM.rdSensorReg16_8(0x3818,&reg_val);
 	myCAM.wrSensorReg16_8(0x3818, (reg_val | 0x38) & 0xBF);
 	myCAM.rdSensorReg16_8(0x4606,&reg_val);
-	myCAM.wrSensorReg16_8(0x4606, (reg_val | 0x10));
+	myCAM.wrSensorReg16_8(0x4606, (reg_val | 0x18));
 	myCAM.rdSensorReg16_8(0x3621,&reg_val);
 	myCAM.wrSensorReg16_8(0x3621, reg_val | 0x20);
+	myCAM.wrSensorReg16_8(0x4602,0x07);
+	myCAM.wrSensorReg16_8(0x4603,0x80);
+	myCAM.wrSensorReg16_8(0x4604,0x04);
+	myCAM.wrSensorReg16_8(0x4605,0x38);
+	myCAM.rdSensorReg16_8(0x4713,&reg_val);
+	myCAM.wrSensorReg16_8(0x4713, (reg_val | 0x02));
+	myCAM.rdSensorReg16_8(0x5002,&reg_val);
+	myCAM.wrSensorReg16_8(0x5002, (reg_val | 0x40));
+	myCAM.rdSensorReg16_8(0x5700,&reg_val);
+	myCAM.wrSensorReg16_8(0x5700, (reg_val | 0x10));
+	myCAM.wrSensorReg16_8(0x3811,0x13);
+	myCAM.rdSensorReg16_8(0x3812,&reg_val);
+	myCAM.wrSensorReg16_8(0x3812, (reg_val | 0x00));
+	myCAM.wrSensorReg16_8(0x3813, 0x20);
+	myCAM.wrSensorReg16_8(0x4500, 0x7E);
+	myCAM.wrSensorReg16_8(0x4502, 0xFF);
+	myCAM.wrSensorReg16_8(0x4503, 0xD8);
+	myCAM.wrSensorReg16_8(0x4504, 0xFF);
+	myCAM.wrSensorReg16_8(0x4505, 0xD9);
+	myCAM.wrSensorReg16_8(0x380c, 0x09);
+	myCAM.wrSensorReg16_8(0x380d, 0xd6);
+	myCAM.wrSensorReg16_8(0x380e, 0x04);
+	myCAM.wrSensorReg16_8(0x380f, 0x58);
 
   	//myCAM.InitCAM();
     myCAM.flush_fifo();
@@ -150,14 +174,16 @@ void loop()
 				Host.checkMem();
       			break;
       		case 'R':
-				len = Host.readBytesUntil('\n', str, 16);   
-				str[len] = '\0';
+				Host.readUntil('\n', str, 16);   
 				if(SD.remove(str))
 					Host.println(F("Successful removed"));   		
 				else
 					Host.println(F("Failed removing"));   		
 				Host.checkMem();
       			break;
+      		case 'E':
+				Host.eraseFiles();
+				break;
     		default:
     			break;
   		}
