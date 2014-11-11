@@ -16,14 +16,14 @@ void HostHelper::checkMem(){
 }
 
 
-void HostHelper::listFiles(File dir,int numTabs){
-	//File root = SD.open("/");
-	dir.seek(0);
+void HostHelper::listFiles(char* dir,int numTabs){
+	File root = SD.open(dir);
+	root.seek(0);
 	while(true) {
-     	File entry =  dir.openNextFile();
+     	File entry =  root.openNextFile();
      	if (! entry) {
        		// no more files
-			dir.close();
+			root.close();
        		break;
      	}
      	for (uint8_t i=0; i<numTabs; i++) {
@@ -32,7 +32,7 @@ void HostHelper::listFiles(File dir,int numTabs){
      	print(entry.name());
      	if (entry.isDirectory()) {
        		println("/");
-			listFiles(entry, numTabs+1);
+			listFiles(entry.name(), numTabs+1);
      	} else {
        		// files have sizes, directories do not
        		print("\t\t");
@@ -42,13 +42,14 @@ void HostHelper::listFiles(File dir,int numTabs){
    	}
 }
 
-void HostHelper::eraseFiles(File dir){
-	dir.seek(0);
+void HostHelper::eraseFiles(char* dir){
+	File root = SD.open(dir);
+	root.seek(0);
 	while(true) {
-     	File entry =  dir.openNextFile();
+     	File entry =  root.openNextFile();
      	if (! entry) {
        		// no more files
-			dir.close();
+			root.close();
        		break;
      	}
 		SD.remove(entry.name());		
@@ -74,14 +75,14 @@ bool HostHelper::available(){
 	return Serial.available();
 }
 
-int HostHelper::fileCount(File dir){
+int HostHelper::fileCount(char *dir){
 	int FileCount = 0;
-	//File root = SD.open("/");
-	dir.seek(0);
+	File root = SD.open(dir);
+	root.seek(0);
 	while(true) {
-     	File entry =  dir.openNextFile();
+     	File entry =  root.openNextFile();
      	if (! entry) {
-			dir.close();
+			root.close();
        		return FileCount;
        		break;
      	}

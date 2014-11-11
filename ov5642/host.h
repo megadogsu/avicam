@@ -22,9 +22,9 @@ class HostHelper{
 		void readUntil(char terminal, char* buffer, unsigned int length = 16);
 		void begin(unsigned long);
 		bool available();
-		int fileCount(File dir = SD.open("/"));
-		void listFiles(File dir = SD.open("/"), int numTabs = 0);
-		void eraseFiles(File dir = SD.open("/"));
+		int fileCount(char* dir = "/");
+		void listFiles(char* dir = "/", int numTabs = 0);
+		void eraseFiles(char* dir = "/");
 	private:
 
 };
