@@ -24,7 +24,7 @@ void Capture::setup_capture()
     myCAM.start_capture();
 }
 
-void Capture::save_SD()
+void Capture::saveToSD()
 {
   	byte buf[SDBuffSize];
   	uint8_t temp,temp_last,temp_first;
@@ -144,3 +144,18 @@ void Capture::save_SD()
     Host.println(F("Ready for another picture"));    
 }
 
+void Capture::changeResolution(char* str){
+	String setting = String(str);
+	if(setting == "H"){
+		myCAM.wrSensorRegs16_8(OV5642_HD_setting);
+		Host.println(F("Changed to HD(1920x1080) setting"));
+	}else if(setting == "Q"){
+		myCAM.wrSensorRegs16_8(OV5642_QVGA_setting);
+		Host.println(F("Changed to QVGA(320x180) setting"));
+	}else if(setting == "T"){
+		myCAM.wrSensorRegs16_8(OV5642_Thumbnail_setting);
+		Host.println(F("Changed to Thumbnail(160x90) etting"));
+	}else{
+		Host.println(F("No such setting"));
+	}
+}

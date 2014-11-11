@@ -135,8 +135,7 @@ void loop()
 {
 	if(Host.available()){
   		// If data comes in from serial monitor, send it out to XBee
-    	char key, str[16];
-    	unsigned len; 
+		char key;
 		Capture *capture = NULL;
 		XBeeData *xbeeData = NULL;
 		
@@ -144,7 +143,16 @@ void loop()
 		while(Host.available() < 1){}
 		key = Host.read();
     	switch(key){
-
+      		case 'S':
+				{
+					Host.println(F("Available Setting: HD(H), QVGA(Q), Thumbnail(T)"));
+    				char str[16];
+					Host.readUntil('\n', str, 16);   
+					capture = new Capture();
+					capture->changeResolution(str);
+					delete capture;
+					break;
+				}
       		case 'G':
       			xbeeData = new XBeeData();
       			xbeeData -> transfer();
@@ -155,7 +163,7 @@ void loop()
 				capture = new Capture();
 				capture->start();
 				Host.checkMem();
-				capture->save_SD();
+				capture->saveToSD();
 				delete capture;
 				Host.checkMem();
 				break;
@@ -174,13 +182,16 @@ void loop()
 				Host.checkMem();
       			break;
       		case 'R':
-				Host.readUntil('\n', str, 16);   
-				if(SD.remove(str))
-					Host.println(F("Successful removed"));   		
-				else
-					Host.println(F("Failed removing"));   		
-				Host.checkMem();
-      			break;
+    			{
+    				char str[16];
+					Host.readUntil('\n', str, 16);   
+					if(SD.remove(str))
+						Host.println(F("Successful removed"));   		
+					else
+						Host.println(F("Failed removing"));   		
+					Host.checkMem();
+      				break;
+      			}
       		case 'E':
 				Host.eraseFiles();
 				break;

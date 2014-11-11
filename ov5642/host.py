@@ -43,6 +43,41 @@ def getImg():
 	jpg_file.close();
 	Image.open('../tmp/test.jpg').show()
 
+def startVideo():
+	jpg_file = open("../tmp/test.jpg", 'w')
+	ser.write('S')
+	print(ser.readline()[:-1])
+	byte = ser.read(4)
+	print(''.join('%02x'%ord(i) for i in byte))
+	size = struct.unpack("I",byte)[0]
+	print("File size is:", size)
+	
+	i = 0
+	terminal = '\n'
+	resend = 'R'
+	buffsize = 512
+	
+	while i < size:
+		if i > size-buffsize:
+			data = ser.read(size % buffsize)
+		else:
+			data = ser.read(buffsize)
+		
+		echo = ser.read()
+		if echo != terminal:
+			ser.write(resend)
+			print("Bad",echo, data,i)
+			continue
+		else:
+			ser.write(terminal)
+			print("Received",i)
+			jpg_file.write(data)
+			i += buffsize
+	
+	print(ser.readline()[:-1])
+
+	jpg_file.close();
+	Image.open('../tmp/test.jpg').show()
 
 bytesToRead = ser.inWaiting()
 mystring = ser.read(bytesToRead)
@@ -71,6 +106,11 @@ while 1:
 		elif key in ('g', 'get'):
 			print("Start to receive picture")
 			getImg()
+		elif key in ('s', 'setting'):
+			ser.write('S')
+			sys.stdin.read(1)
+			print(ser.readline()[:-1])
+			ser.write(sys.stdin.readline());
 		elif key in ('o', 'open'):
 			ser.write('O')
 		elif key in ('c', 'close'):
