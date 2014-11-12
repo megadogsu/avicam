@@ -3,18 +3,18 @@
 extern ArduCAM myCAM;
 extern HostHelper Host;
 
-void Capture::start()
+void CamControl::start()
 {
     myCAM.write_reg(ARDUCHIP_MODE, 0x00);
   	myCAM.write_reg(ARDUCHIP_TIM, VSYNC_LEVEL_MASK);		//VSYNC is active HIGH
     //Wait until buttom released
     setup_capture();
-    Host.println(F("Start Capture"));     
+    //Host.println(F("Start Capture"));     
   	while(myCAM.read_reg(ARDUCHIP_TRIG) & CAP_DONE_MASK){}
-    Host.println(F("Sensor Capture Done!"));
+    //Host.println(F("Sensor Capture Done!"));
 }
 
-void Capture::setup_capture()
+void CamControl::setup_capture()
 {
     //Flush the FIFO 
     myCAM.flush_fifo();	
@@ -24,7 +24,7 @@ void Capture::setup_capture()
     myCAM.start_capture();
 }
 
-void Capture::saveToSD()
+void CamControl::saveToSD()
 {
   	byte buf[SDBuffSize];
   	uint8_t temp,temp_last,temp_first;
@@ -144,18 +144,48 @@ void Capture::saveToSD()
     Host.println(F("Ready for another picture"));    
 }
 
-void Capture::changeResolution(char* str){
+void CamControl::changeResolution(char* str){
 	String setting = String(str);
-	if(setting == "H"){
+	/*	
+	Host.checkMem();
+	prog_char hd[] PROGMEM = "HD";
+	prog_char qvga[] PROGMEM = "QVGA";
+	prog_char thumbnail[] PROGMEM = "Thumbnail";
+	Host.checkMem();
+	
+	PROGMEM const char *resolution[] = {   
+  		hd,
+  		qvga,
+  		thumbnail
+  	};
+	Host.checkMem();
+
+	char buffer[16];
+	strcpy_P(buffer, (char*)pgm_read_word((resolution[0])));
+	String HD = String(buffer);
+	strcpy_P(buffer, (char*)pgm_read_word((resolution[1])));
+	String QVGA = String(buffer);
+	strcpy_P(buffer, (char*)pgm_read_word((resolution[2])));
+	String Thumbnail = String(buffer);
+
+	Host.checkMem();
+	Host.print(HD);
+	Host.print(Thumbnail);
+	Host.checkMem();
+	*/	
+	if(setting == "H" || setting == "HD"){
 		myCAM.wrSensorRegs16_8(OV5642_HD_setting);
 		Host.println(F("Changed to HD(1920x1080) setting"));
-	}else if(setting == "Q"){
+	}else if(setting == "Q" || setting == "QVGA"){
 		myCAM.wrSensorRegs16_8(OV5642_QVGA_setting);
 		Host.println(F("Changed to QVGA(320x180) setting"));
-	}else if(setting == "T"){
+	}else if(setting == "T" || setting == "Thumb"){
 		myCAM.wrSensorRegs16_8(OV5642_Thumbnail_setting);
-		Host.println(F("Changed to Thumbnail(160x90) etting"));
+		Host.println(F("Changed to Thumbnail(160x90) setting"));
 	}else{
 		Host.println(F("No such setting"));
 	}
+   	myCAM.flush_fifo();
+ 	delay(50);
 }
+

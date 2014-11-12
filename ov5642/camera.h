@@ -1,6 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <avr/pgmspace.h>
 #include <UTFT_SPI.h>
 #include <Wire.h>
 #include <ArduCAM.h>
@@ -602,13 +603,7 @@ const struct sensor_reg OV5642_Thumbnail_setting[] PROGMEM = {
 	{0xffff, 0xff},
 };
 
-enum resolution{
-	HD,
-	QVGA,
-	Thumbnail,
-};
-
-class Capture{
+class CamControl{
 	public:
 		void start();
 		void setup_capture();

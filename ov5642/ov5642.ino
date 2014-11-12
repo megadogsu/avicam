@@ -37,7 +37,6 @@ void setup()
 #endif
   	Host.begin(115200);
   	while(Host.available() < 0){}
-	UBRR0L = 17;
 
 	Host.checkMem();
 
@@ -136,23 +135,12 @@ void loop()
 	if(Host.available()){
   		// If data comes in from serial monitor, send it out to XBee
 		char key;
-		Capture *capture = NULL;
+		CamControl *cam = NULL;
 		XBeeData *xbeeData = NULL;
-		
 
 		while(Host.available() < 1){}
 		key = Host.read();
     	switch(key){
-      		case 'S':
-				{
-					Host.println(F("Available Setting: HD(H), QVGA(Q), Thumbnail(T)"));
-    				char str[16];
-					Host.readUntil('\n', str, 16);   
-					capture = new Capture();
-					capture->changeResolution(str);
-					delete capture;
-					break;
-				}
       		case 'G':
       			xbeeData = new XBeeData();
       			xbeeData -> transfer();
@@ -160,11 +148,11 @@ void loop()
       			break;
       		case 'T':
 				Host.println(F("Capture Signal Received"));
-				capture = new Capture();
-				capture->start();
+				cam = new CamControl();
+				cam->start();
 				Host.checkMem();
-				capture->saveToSD();
-				delete capture;
+				cam->saveToSD();
+				delete cam;
 				Host.checkMem();
 				break;
       		case 'O':
@@ -195,6 +183,35 @@ void loop()
       		case 'E':
 				Host.eraseFiles();
 				break;
+      		case 'S':
+				{
+    				char str[16];
+					Host.println(F("Available Setting: HD(H), QVGA(Q), Thumbnail(T)"));
+					Host.readUntil('\n', str, 16);   
+					cam = new CamControl();
+					cam->changeResolution(str);
+					delete cam;
+					break;
+				}
+      		case 'V':
+      			{
+					char stop;
+					Host.println(F("Starting Video"));
+					cam = new CamControl();
+					cam->changeResolution("Thumb");
+      				xbeeData = new XBeeData();
+					do{
+						cam->start();
+      					xbeeData -> video();
+						if(Host.available() > 0)
+							stop = Host.read();
+						else
+							stop = '\0';
+      				}while(stop != 'q');
+      				delete xbeeData;
+					delete cam;
+					break;
+				}
     		default:
     			break;
   		}
