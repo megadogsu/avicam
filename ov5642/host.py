@@ -59,11 +59,19 @@ def startVideo():
 	data = ""
 	print(ser.readline()[:-1])
 	window = Tkinter.Tk()  
-	window.geometry("320x180")
+	window.geometry("640x360")
 	tbk = StreamViewer(window)
 	#thread.start_new_thread(updateWindow, ()
 
 	while True:
+		if kbhit():
+			key = getch()
+			if key in ('q', 'quit'):
+				ser.write('Q')
+				print("I write a QQQQQQ")
+				print(ser.readline()[-3:-1])
+				window.destroy()
+				break
 		bytesToRead = ser.inWaiting()
 		buff = ser.read(bytesToRead)
 		data += buff

@@ -198,16 +198,19 @@ void loop()
 					char stop;
 					Host.println(F("Starting Video"));
 					cam = new CamControl();
-					cam->changeResolution("Thumb");
+					//cam->changeResolution("Thumb");
       				xbeeData = new XBeeData();
 					do{
 						cam->start();
       					xbeeData -> video();
-						if(Host.available() > 0)
+						if(Host.available() > 0){
 							stop = Host.read();
-						else
+							Host.println(stop);
+						}else{
 							stop = '\0';
-      				}while(stop != 'q');
+						}
+      				}while(stop != 'Q');
+      				Host.print('\n');
       				delete xbeeData;
 					delete cam;
 					break;
