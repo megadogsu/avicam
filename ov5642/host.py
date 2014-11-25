@@ -8,7 +8,7 @@ import Tkinter
 import Image, ImageTk
 import thread
 
-ser = serial.Serial('/dev/ttyUSB0', 115200)
+ser = serial.Serial('/dev/ttyUSB0', 57600)
 
 
 def getImg():
@@ -23,7 +23,7 @@ def getImg():
 	i = 0
 	terminal = '\n'
 	resend = 'R'
-	buffsize = 512
+	buffsize = 256
 	
 	while i < size:
 		if i > size-buffsize:
@@ -149,6 +149,8 @@ while True:
 		elif key in ('v', 'video'):
 			ser.write('V')
 			startVideo()
+		elif key in ('x', 'xy location'):
+			ser.write('X')
 		elif key in ('q', 'quit'):
 			break
 #	echo = ser.read(ser.inWaiting())

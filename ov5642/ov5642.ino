@@ -17,6 +17,7 @@
 #include <SD.h>
 #include "camera.h"
 #include "xbee.h"
+#include "gps.h"
 #include "host.h"
 
 #define SD_CS 9 
@@ -35,7 +36,7 @@ void setup()
 #if defined(__arm__)
     Wire1.begin(); 
 #endif
-  	Host.begin(115200);
+  	Host.begin(57600);
   	while(Host.available() < 0){}
 
 	Host.checkMem();
@@ -137,6 +138,7 @@ void loop()
 		char key;
 		CamControl *cam = NULL;
 		XBeeData *xbeeData = NULL;
+		GPSData *gps = NULL;
 
 		while(Host.available() < 1){}
 		key = Host.read();
@@ -215,6 +217,12 @@ void loop()
 					delete cam;
 					break;
 				}
+      		case 'X':
+				gps = new GPSData();
+				gps->GetGPS();
+				Host.checkMem();
+				delete gps;
+				break;
     		default:
     			break;
   		}
