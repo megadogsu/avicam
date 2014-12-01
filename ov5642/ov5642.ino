@@ -25,6 +25,7 @@
 ArduCAM myCAM(OV5642,SPI_CS);
 
 HostHelper Host;
+GPSDevice gps;
 
 void setup()
 {
@@ -36,7 +37,7 @@ void setup()
 #if defined(__arm__)
     Wire1.begin(); 
 #endif
-  	Host.begin(57600);
+  	Host.begin(115200);
   	while(Host.available() < 0){}
 
 	Host.checkMem();
@@ -129,6 +130,9 @@ void setup()
   	  	Host.println(F("initialization done."));
 		Host.checkMem();
   	}
+
+  	gps.begin(9600);
+  	
 }
 
 void loop()
@@ -138,7 +142,6 @@ void loop()
 		char key;
 		CamControl *cam = NULL;
 		XBeeData *xbeeData = NULL;
-		GPSData *gps = NULL;
 
 		while(Host.available() < 1){}
 		key = Host.read();
@@ -218,10 +221,7 @@ void loop()
 					break;
 				}
       		case 'X':
-				gps = new GPSData();
-				gps->GetGPS();
-				Host.checkMem();
-				delete gps;
+      			gps.GetData();
 				break;
     		default:
     			break;

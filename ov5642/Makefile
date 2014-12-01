@@ -5,7 +5,7 @@ MONITOR_PORT  = /dev/ttyUSB0
 ARDUINO_LIBS = Wire/utility SPI Wire SD SD/utility SoftwareSerial UTFT_SPI ArduCAM MemoryFree
 ARDMK_DIR = /usr/local
 ARDMK_PATH = /usr/share/arduino
-MONITOR_BAUDRATE = 57600
+MONITOR_BAUDRATE = 115200
 
 include /usr/share/arduino/Arduino.mk
 usb:

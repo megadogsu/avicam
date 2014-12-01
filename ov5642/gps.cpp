@@ -2,13 +2,23 @@
 
 extern HostHelper Host;
 
-GPSData::GPSData(uint8_t RX, uint8_t TX)
+GPSDevice::GPSDevice(uint8_t RX, uint8_t TX)
 	:gpsSerial(RX,TX)
 {	
-  	gpsSerial.begin(9600);
 }
 
-void GPSData::GetGPS()
+void GPSDevice::begin(unsigned long baud){
+	gpsSerial.begin(9600);
+}
+
+void GPSDevice::GetData()
+{
+	GPSData gpsData;
+	gpsData.GetGPS(gpsSerial);	
+}
+
+
+void GPSData::GetGPS(SoftwareSerial& gpsSerial)
 {
   	static int i = 0;
   	int GPSSentenceLength = 0, ReadComplete = 0;
@@ -30,10 +40,11 @@ void GPSData::GetGPS()
        			i = 0;
        			if ((GPSSentence[0]=='$')&&(GPSSentence[4]=='G'))
        			{
-          			SaveGPSData(GPSSentenceLength);
+          			// SaveGPSData(GPSSentenceLength);
           			ReadComplete = 1;
 					//          dummy.listen();
-          			displayGPS();
+					//Host.println(GPSSentence);
+					displayGPS();
        			}
       		}
     	}

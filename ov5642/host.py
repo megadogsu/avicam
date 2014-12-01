@@ -8,7 +8,7 @@ import Tkinter
 import Image, ImageTk
 import thread
 
-ser = serial.Serial('/dev/ttyUSB0', 57600)
+ser = serial.Serial('/dev/ttyUSB0', 115200)
 
 
 def getImg():
@@ -74,6 +74,7 @@ def startVideo():
 				break
 		bytesToRead = ser.inWaiting()
 		buff = ser.read(bytesToRead)
+		print(buff)
 		data += buff
 		a = data.find('\xff\xd8')
 		b = data.find('\xff\xd9')
