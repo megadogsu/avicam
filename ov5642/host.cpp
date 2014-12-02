@@ -6,9 +6,10 @@ HostHelper::HostHelper(uint8_t RX, uint8_t TX)
 }
 
 void HostHelper::begin(unsigned long baud){
+	//UCSR0A |= (1 << U2X0); 
+	
+	UBRR0L = 17;
 	Serial.begin(baud);
-	UCSR0A |= (1 << U2X0); 
-	UBRR0L = 16;
 	Serial.setTimeout(10000);
 }
 

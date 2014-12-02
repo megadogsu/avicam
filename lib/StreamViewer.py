@@ -16,5 +16,5 @@ class StreamViewer(Frame):
         self.canvas.pack()
         
      def addImage(self, photoimage):
-          self.canvas.create_image(640,360, image=photoimage, anchor=SE)
+          self.canvas.create_image(960,540, image=photoimage, anchor=SE)
 

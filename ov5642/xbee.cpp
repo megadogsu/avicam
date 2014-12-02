@@ -84,16 +84,13 @@ void XBeeData::video(){
       	else
       	{
         	//Write SDBuffSize bytes image data to file
-
-		  	Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
-        	/*
-			   do{
-		  	   Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
-		  	   Host.write(terminal);
-		  	   while(Host.available() < 1){}
-			   echo = Host.read();
-        	   }while(echo != terminal);
-			   */
+		  	//Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
+			do{
+		  	   	Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
+		  	   	Host.write(terminal);
+		  	   	while(Host.available() < 1){}
+			   	echo = Host.read();
+        	}while(echo != terminal);
 
         	i = 0;
         	XBeeBuff[i++] = temp;
@@ -101,14 +98,15 @@ void XBeeData::video(){
     }
     //Write the remain bytes in the buffer
     if(i > 0){
-		Host.write((uint8_t*)XBeeBuff,i);
-        /*do{
-		  Host.write((uint8_t*)XBeeBuff,i);
-		  Host.write(terminal);
-		  while(Host.available() < 1){}
-		  echo = Host.read();
-          }while(echo != terminal);*/
+		//Host.write((uint8_t*)XBeeBuff,i);
+        do{
+		  	Host.write((uint8_t*)XBeeBuff,i);
+		  	Host.write(terminal);
+		  	while(Host.available() < 1){}
+		  	echo = Host.read();
+        }while(echo != terminal);
     }
+	//Host.print("Finished");
     //Clear the capture done flag 
     myCAM.clear_fifo_flag();
 }

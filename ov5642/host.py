@@ -9,7 +9,9 @@ import Image, ImageTk
 import thread
 
 ser = serial.Serial('/dev/ttyUSB0', 115200)
-
+buffsize = 256
+terminal = '\n'
+resend = 'R'
 
 def getImg():
 	jpg_file = open("../tmp/test.jpg", 'w')
@@ -21,9 +23,6 @@ def getImg():
 	print("File size is:", size)
 	
 	i = 0
-	terminal = '\n'
-	resend = 'R'
-	buffsize = 256
 	
 	while i < size:
 		if i > size-buffsize:
@@ -57,25 +56,59 @@ def _resize_image(self,event):
 
 def startVideo():	 
 	data = ""
+	buff = ""
 	print(ser.readline()[:-1])
 	window = Tkinter.Tk()  
-	window.geometry("640x360")
+	window.geometry("960x540")
 	tbk = StreamViewer(window)
 	#thread.start_new_thread(updateWindow, ()
 
 	while True:
-		if kbhit():
-			key = getch()
-			if key in ('q', 'quit'):
-				ser.write('Q')
-				print("I write a QQQQQQ")
-				print(ser.readline()[-3:-1])
-				window.destroy()
-				break
+#		if kbhit():
+#			key = getch()
+#			if key in ('q', 'quit'):
+#				ser.write('Q')
+#				print("I write a QQQQQQ")
+#				print(ser.readline()[-3:-1])
+#				window.destroy()
+#				break
 		bytesToRead = ser.inWaiting()
-		buff = ser.read(bytesToRead)
-		print(buff)
-		data += buff
+		buff += ser.read(bytesToRead)
+#		print(repr(buff), len(buff))
+		end = buff.find('\xff\xd9\n')	
+		if end != -1:
+			echo = buff[end+2:end+3]
+			if echo != terminal:
+				ser.write(resend)
+				print("Bad",echo, buff)
+#				getch()
+				continue
+			else:
+				ser.write(terminal)
+				print("Received")
+				data += buff[:end+2]
+				buff = buff[end+3:]
+
+		elif len(buff) == buffsize+1:
+			echo = buff[-1:]
+			if echo != terminal:
+				ser.write(terminal)
+#				print("Bad",echo, buff)
+#				getch()
+				bytesToRead = ser.inWaiting()
+				print("Reset", repr(ser.read(bytesToRead)))
+				data = ""
+				buff = ""
+				continue
+			else:
+				ser.write(terminal)
+				print("Received")
+				data += buff[:-1]
+				buff = ""
+#				print(repr(buff))
+		else:
+			continue
+
 		a = data.find('\xff\xd8')
 		b = data.find('\xff\xd9')
 		if a != -1 and b != -1:
@@ -95,69 +128,62 @@ def startVideo():
 			#Tkinter.Label(window, image=tkimage).pack()
 
 
-bytesToRead = ser.inWaiting()
-mystring = ser.read(bytesToRead)
-sys.stdout.write(mystring)
-sys.stdout.flush()
-print("press 't' to trigger the shot, 'z' to see its size, 'g' to get it back!, 'b' for full resolution image through RF")
-
-while True:
-	# Poll keyboard 
-	if kbhit():
-		key = getch()
-		if key in ('t', 'capture'):
-			ser.write('T')
-#			print(ser.readline()[:-1])
-#			print(ser.readline()[:-1])
-#			print(ser.readline()[:-1])
-#			print(ser.readline()[:-1])
-#			print(ser.readline()[:-1])
-#			print(ser.readline()[:-1])
-#			hexstring = ser.readline()[:-1]
-#			hexstring = hexstring[len(hexstring)%2:]
-#			hex_data = hexstring.decode("hex")
-#			print(repr(hex_data))
-#			with open("hex1.txt", "wb") as f:
-#				f.write(hex_data)
-		elif key in ('g', 'get'):
-			print("Start to receive picture")
-			getImg()
-		elif key in ('s', 'setting'):
-			ser.write('S')
-			sys.stdin.read(1)
-			print(ser.readline()[:-1])
-			ser.write(sys.stdin.readline());
-		elif key in ('o', 'open'):
-			ser.write('O')
-		elif key in ('c', 'close'):
-			ser.write('C')
-		elif key in ('z', 'size'):
-			ser.write('Z')
-			print(ser.readline())
-		elif key in ('w', 'write'):
-			ser.write('W')
-			print(ser.readline())
-		elif key in ('r', 'remove'):
-			ser.write('R')
-			sys.stdin.read(1)
-			ser.write(sys.stdin.readline());
-		elif key in ('l', 'list'):
-			ser.write('L')
-		elif key in ('m', 'memory'):
-			ser.write('M')
-		elif key in ('e', 'erase'):
-			ser.write('E')
-		elif key in ('v', 'video'):
-			ser.write('V')
-			startVideo()
-		elif key in ('x', 'xy location'):
-			ser.write('X')
-		elif key in ('q', 'quit'):
-			break
-#	echo = ser.read(ser.inWaiting())
-#	if echo:
-#		print(echo)
+try:
+    # your code
 	bytesToRead = ser.inWaiting()
 	mystring = ser.read(bytesToRead)
 	sys.stdout.write(mystring)
 	sys.stdout.flush()
+	print("press 't' to trigger the shot, 'z' to see its size, 'g' to get it back!, 'b' for full resolution image through RF")
+
+	while True:
+		# Poll keyboard 
+		if kbhit():
+			key = getch()
+			if key in ('t', 'capture'):
+				ser.write('T')
+			elif key in ('g', 'get'):
+				print("Start to receive picture")
+				getImg()
+			elif key in ('s', 'setting'):
+				ser.write('S')
+				sys.stdin.read(1)
+				print(ser.readline()[:-1])
+				ser.write(sys.stdin.readline());
+			elif key in ('o', 'open'):
+				ser.write('O')
+			elif key in ('c', 'close'):
+				ser.write('C')
+			elif key in ('z', 'size'):
+				ser.write('Z')
+				print(ser.readline())
+			elif key in ('w', 'write'):
+				ser.write('W')
+				print(ser.readline())
+			elif key in ('r', 'remove'):
+				ser.write('R')
+				sys.stdin.read(1)
+				ser.write(sys.stdin.readline());
+			elif key in ('l', 'list'):
+				ser.write('L')
+			elif key in ('m', 'memory'):
+				ser.write('M')
+			elif key in ('e', 'erase'):
+				ser.write('E')
+			elif key in ('v', 'video'):
+				ser.write('V')
+				startVideo()
+			elif key in ('x', 'xy location'):
+				ser.write('X')
+			elif key in ('q', 'quit'):
+				break
+#	echo = ser.read(ser.inWaiting())
+#	if echo:
+#		print(echo)
+		bytesToRead = ser.inWaiting()
+		mystring = ser.read(bytesToRead)
+		sys.stdout.write(mystring)
+		sys.stdout.flush()
+except KeyboardInterrupt:
+	sys.exit(0)
+
