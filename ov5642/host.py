@@ -72,6 +72,10 @@ def startVideo():
 		data += buff
 		a = data.find('\xff\xd8')
 		b = data.find('\xff\xd9')
+#		if buff:
+#			print(repr(buff))
+#			print(a, b)
+#			print("")
 		if a != -1 and b != -1:
 			print("Image Received")
 			jpg_data = data[a:b+2]
