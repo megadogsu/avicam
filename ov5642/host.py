@@ -30,16 +30,9 @@ def getImg():
 		else:
 			data = ser.read(buffsize)
 		
-		echo = ser.read()
-		if echo != terminal:
-			ser.write(resend)
-			print("Bad",echo, data,i)
-			continue
-		else:
-			ser.write(terminal)
-			print("Received",i)
-			jpg_file.write(data)
-			i += buffsize
+		print("Received",i)
+		jpg_file.write(data)
+		i += buffsize
 	
 	print(ser.readline()[:-1])
 
@@ -73,42 +66,10 @@ def startVideo():
 #				window.destroy()
 #				break
 		bytesToRead = ser.inWaiting()
-		buff += ser.read(bytesToRead)
-#		print(repr(buff), len(buff))
-		end = buff.find('\xff\xd9\n')	
-		if end != -1:
-			echo = buff[end+2:end+3]
-			if echo != terminal:
-				ser.write(resend)
-				print("Bad",echo, buff)
-#				getch()
-				continue
-			else:
-				ser.write(terminal)
-				print("Received")
-				data += buff[:end+2]
-				buff = buff[end+3:]
-
-		elif len(buff) == buffsize+1:
-			echo = buff[-1:]
-			if echo != terminal:
-				ser.write(terminal)
-#				print("Bad",echo, buff)
-#				getch()
-				bytesToRead = ser.inWaiting()
-				print("Reset", repr(ser.read(bytesToRead)))
-				data = ""
-				buff = ""
-				continue
-			else:
-				ser.write(terminal)
-				print("Received")
-				data += buff[:-1]
-				buff = ""
-#				print(repr(buff))
-		else:
-			continue
-
+		buff = ser.read(bytesToRead)
+#		if buff:
+#			print(repr(buff))
+		data += buff
 		a = data.find('\xff\xd8')
 		b = data.find('\xff\xd9')
 		if a != -1 and b != -1:

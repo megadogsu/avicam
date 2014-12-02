@@ -15,7 +15,10 @@ class XBeeData{
 
     	static const char terminal = '\n';
 		static const unsigned int XBeeBuffSize = 256;
+		static const unsigned int DIBuffSize = 1024;
 		static const short RetryDelay = 20;
+		static const short RFDelay = 480;
+		static const short VideoDelay = 900;
 		char str[8];
     	int readbytes;
         char XBeeBuff[XBeeBuffSize+1], echo;

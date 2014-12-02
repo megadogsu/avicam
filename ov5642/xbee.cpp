@@ -12,7 +12,7 @@ void XBeeData::SerialInt(unsigned long n){
 
 void XBeeData::transfer()
 {
-
+	
 	unsigned long i, fileSize;
     itoa(Host.fileCount() , str, 10); 
     strcat(str,".jpg");
@@ -33,18 +33,14 @@ void XBeeData::transfer()
 
 		  	i += readbytes;
 
-          	do{
-		  	  	if(i == fileSize){
-		  	  		Host.write((uint8_t*)XBeeBuff,fileSize%XBeeBuffSize);
-		  	  		Host.write(terminal);
-				}
-		  	  	else{
-		  	  		Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
-		  	  		Host.write(terminal);
-		  	  	}
-		  	  	while(Host.available() < 1){}
-			  	echo = Host.read();
-          	}while(echo != terminal);
+		  	if(i == fileSize){
+		  	  	Host.write((uint8_t*)XBeeBuff,fileSize%XBeeBuffSize);
+			}
+		  	else{
+		  	  	Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
+		  	}
+			if(i % DIBuffSize == 0)
+				delay(RFDelay);  //Wait for DI Buffer to be transmitted	
 		}
         // close the file:
         Host.print(F("Transfer Done! Total:"));
@@ -58,55 +54,44 @@ void XBeeData::transfer()
 
 void XBeeData::video(){
 	uint8_t temp_first = 0x00, temp = 0x00, temp_last = 0x00;
-	int i;
+	long unsigned int i;
     i = 0;
     while( (temp != 0xD8) | (temp_first != 0xFF))
     {
-    	temp_first = temp;
-    	temp = myCAM.read_fifo();
+       	temp_first = temp;
+       	temp = myCAM.read_fifo();
 		//Host.print(temp,HEX);
     }
     //Write first image data to buffer
-    XBeeBuff[i++] = temp_first;
-    XBeeBuff[i++] = temp;
-    //Host.println(F("SOI Detected"));
+	XBeeBuff[i++] = temp_first;
+	XBeeBuff[i++] = temp;
+
 
     //Read JPEG data from FIFO
     while( (temp != 0xD9) | (temp_last != 0xFF) )
     {
-      	temp_last = temp;
-      	temp = myCAM.read_fifo();
-      	//Host.print(temp,HEX);
+    	temp_last = temp;
+    	temp = myCAM.read_fifo();
+    	//Host.print(temp,HEX);
 
+		if(i % XBeeBuffSize == 0){
+			Host.write((uint8_t*)XBeeBuff, XBeeBuffSize);
+		}
 		//Write image data to buffer if not full
-      	if(i < XBeeBuffSize)
-        	XBeeBuff[i++] = temp;
-      	else
-      	{
-        	//Write SDBuffSize bytes image data to file
-		  	//Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
-			do{
-		  	   	Host.write((uint8_t*)XBeeBuff,XBeeBuffSize);
-		  	   	Host.write(terminal);
-		  	   	while(Host.available() < 1){}
-			   	echo = Host.read();
-        	}while(echo != terminal);
+    	if(i % DIBuffSize == 0){
+			delay(VideoDelay);
+		}
+		XBeeBuff[i%XBeeBuffSize] = temp;
+		i++;
+    }
 
-        	i = 0;
-        	XBeeBuff[i++] = temp;
-      	}
-    }
-    //Write the remain bytes in the buffer
-    if(i > 0){
-		//Host.write((uint8_t*)XBeeBuff,i);
-        do{
-		  	Host.write((uint8_t*)XBeeBuff,i);
-		  	Host.write(terminal);
-		  	while(Host.available() < 1){}
-		  	echo = Host.read();
-        }while(echo != terminal);
-    }
-	//Host.print("Finished");
-    //Clear the capture done flag 
+	if(i % XBeeBuffSize > 0){
+		Host.write((uint8_t*)XBeeBuff, i%XBeeBuffSize);
+	}
+    /*if((i % DIBuffSize) > DIBuffSize - XBeeBuffSize){
+		//delay(VideoDelay);
+	}*/
+
     myCAM.clear_fifo_flag();
+
 }
