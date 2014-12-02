@@ -71,20 +71,11 @@ void setup()
   	else
   	  	Host.println(F("OV5642 detected"));
 
-  	//Change to BMP capture mode and initialize the OV5642 module	  	
-  	//myCAM.set_format(BMP);
-  	//myCAM.InitCAM();
-    //myCAM.set_format(JPEG);
-	//myCAM.wrSensorRegs16_8(OV5642_5M_Pixel_setting);
 	byte reg_val;
 	myCAM.wrSensorReg16_8(0x3008, 0x80);
 
 	delay(100);
-	//myCAM.wrSensorRegs16_8(OV5642_default_setting);
-	//myCAM.wrSensorRegs16_8(OV5642_1080P_Video_setting);
-	//myCAM.wrSensorRegs16_8(OV5642_JPEG_Capture_QSXGA);
 	myCAM.wrSensorRegs16_8(OV5642_avicam_setting);
-	//myCAM.wrSensorRegs16_8(OV5642_VGA_preview_setting);
 	
 	myCAM.rdSensorReg16_8(0x3818,&reg_val);
 	myCAM.wrSensorReg16_8(0x3818, (reg_val | 0x38) & 0xBF);

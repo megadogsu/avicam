@@ -6,8 +6,6 @@
 #include <SD.h>
 #include "host.h"
 
-#define XBEE
-
 class XBeeData{
 	public:
 		void transfer();	
@@ -26,7 +24,7 @@ class XBeeData{
 
 #else
 
-		static const short RFDelay = 36; //XBee
+		static const short RFDelay = 72; //XBee
 		static const short PacketDelay = 64; //XBee Pro
 #endif
 		char str[8];
