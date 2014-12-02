@@ -96,6 +96,6 @@ void XBeeData::video(){
 		//Host.write((uint8_t*)XBeeBuff,i);
 		Host.write((uint8_t*)XBeeBuff,i);
     }
-	delay(n*RFDelay/DIBuffSize+160); 
+	delay(n*RFDelay/DIBuffSize+PacketDelay); 
 	myCAM.clear_fifo_flag();
 }

@@ -57,14 +57,22 @@ def startVideo():
 	#thread.start_new_thread(updateWindow, ()
 
 	while True:
-#		if kbhit():
-#			key = getch()
-#			if key in ('q', 'quit'):
-#				ser.write('Q')
-#				print("I write a QQQQQQ")
-#				print(ser.readline()[-3:-1])
-#				window.destroy()
-#				break
+		if kbhit():
+			key = getch()
+			if key in ('q', 'quit'):
+				ser.write("Q")
+				time.sleep(0.5)
+				bytesToRead = ser.inWaiting()
+				buff = ser.read(bytesToRead)
+				time.sleep(0.5)
+				while ser.inWaiting() > 0:
+					ser.write("Q")
+					time.sleep(1)
+					bytesToRead = ser.inWaiting()
+					buff = ser.read(bytesToRead)
+				print("Finsih Video")
+				window.destroy()
+				break
 		bytesToRead = ser.inWaiting()
 		buff = ser.read(bytesToRead)
 #		if buff:

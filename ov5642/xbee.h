@@ -6,6 +6,8 @@
 #include <SD.h>
 #include "host.h"
 
+#define XBEE
+
 class XBeeData{
 	public:
 		void transfer();	
@@ -17,7 +19,16 @@ class XBeeData{
 		static const unsigned int XBeeBuffSize = 256;
 		static const unsigned int DIBuffSize = 1024;
 		static const short RetryDelay = 20;
-		static const short RFDelay = 480;
+
+#ifndef XBEE
+		static const short RFDelay = 480; //XBee Pro
+		static const short PacketDelay = 160; //XBee Pro
+
+#else
+
+		static const short RFDelay = 36; //XBee
+		static const short PacketDelay = 64; //XBee Pro
+#endif
 		char str[8];
     	int readbytes;
         char XBeeBuff[XBeeBuffSize+1], echo;
