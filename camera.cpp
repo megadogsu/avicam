@@ -148,6 +148,12 @@ void CamControl::changeResolution(char str){
 	if(str == 'H'){
 		myCAM.wrSensorRegs16_8(OV5642_HD_setting);
 		Host.println(F("Changed to HD(1920x1080) setting"));
+	}else if(str == 'D'){
+		myCAM.wrSensorRegs16_8(OV5642_DVGA_setting);
+		Host.println(F("Changed to DVGA(960x540) setting"));
+	}else if(str == 'V'){
+		myCAM.wrSensorRegs16_8(OV5642_VGA_setting);
+		Host.println(F("Changed to VGA(640x360) setting"));
 	}else if(str == 'Q'){
 		myCAM.wrSensorRegs16_8(OV5642_QVGA_setting);
 		Host.println(F("Changed to QVGA(320x180) setting"));
