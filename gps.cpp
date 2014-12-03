@@ -14,7 +14,6 @@ void GPSDevice::begin(unsigned long baud){
 void GPSDevice::GetData()
 {
 	GPSData gpsData;
-	Host.print("GPS");
 	gpsData.GetGPS(gpsSerial);	
 }
 

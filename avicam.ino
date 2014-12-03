@@ -202,7 +202,6 @@ void loop()
 					break;
 				}
       		case 'X':
-      			Host.print("Test");
       			gps.GetData();
 				break;
     		default:
