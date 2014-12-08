@@ -61,6 +61,7 @@ void setup()
 
   	myCAM.InitCAM();
   	myCAM.wrSensorReg8_8(0x11, 0x3F);
+    myCAM.OV2640_set_JPEG_size(OV2640_160x120);
   	
   	//Initialize SD Card
   	

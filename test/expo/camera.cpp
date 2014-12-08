@@ -4,9 +4,11 @@ extern ArduCAM myCAM;
 extern HostHelper Host;
 
 byte CamControl::getByte(){
+	while(!digitalRead(HREF_PIN)){}
 	while(digitalRead(CLK_PIN)){}
 	while(!digitalRead(CLK_PIN)){}
 	return PINL;
+	
 	/*byte temp;
 	while(true){
 		while(!digitalRead(HREF_PIN)){}
@@ -24,6 +26,7 @@ byte CamControl::getByte(){
 
 void CamControl::start()
 {
+	/*
   	uint8_t temp,temp_last,temp_first;
 	unsigned long i = 0, j = 0;
     while( (temp != 0xD8) | (temp_first != 0xFF))
@@ -32,7 +35,7 @@ void CamControl::start()
     	temp = getByte();
 		//Host.print(temp, HEX);
     }
-	Host.println("SOI Detected");
+	
 	FIFO[i++] = temp_first;
 	FIFO[i++] = temp;
 
@@ -48,8 +51,7 @@ void CamControl::start()
 	for(j = 0; j < i; j++){
 		Host.print(FIFO[j], HEX);
 	}
-	
-	
+	*/	
 }
 
 void CamControl::setup_capture()
@@ -88,8 +90,9 @@ void CamControl::saveToSD()
     while( (temp != 0xD8) | (temp_first != 0xFF))
     {
     	temp_first = temp;
-    	temp = FIFO[j++];
-		//Host.print(temp,HEX);
+		while(Serial3.available() < 1){}
+    	temp = Serial3.read();
+		Host.print(temp, HEX);
     }
     //Write first image data to buffer
     buf[i++] = temp_first;
@@ -100,7 +103,8 @@ void CamControl::saveToSD()
     while( (temp != 0xD9) | (temp_last != 0xFF) )
     {
       	temp_last = temp;
-      	temp = FIFO[j++];
+		while(Serial3.available() < 1){}
+      	temp = Serial3.read();
       	//Host.print(temp,HEX);
 		//Write image data to buffer if not full
       	if(i < SDBuffSize)

@@ -627,13 +627,13 @@ class CamControl{
 		void setup_capture();
 		void saveToSD();
 		void changeResolution(char);
-		byte getByte();
 	private:
+		byte getByte();
         char str[8];
 		static const unsigned int SDBuffSize = 128;
-		static const unsigned int FIFOSize = 4096;
+		//static const unsigned int FIFOSize = 4096;
 		static const short RetryDelay = 20;
-		byte FIFO[FIFOSize];
+		//byte FIFO[FIFOSize];
     	File outFile;
 };
 
